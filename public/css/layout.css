@@ -1,0 +1,40 @@
+/* Body */
+body {
+    background-color: #212121;
+}
+
+/* Logo Script Hub */
+figure#logo-scripthub {
+    width: 10vh;
+}
+
+/* Documentation */
+a.nav-link[href="https://scripthubteam.github.io/docs/"] {
+    background-color: #33b5e5;
+}
+
+/* Patreon */
+a.nav-link[href^="https://www.patreon.com/"] {
+    background-color: #F80;
+}
+
+/* Discord */
+a.nav-link[href^="https://discordapp.com/"] {
+    background-color: #7289DA;
+}
+
+.h-25vh {
+    height: 25vh;
+}
+
+.h-50vh {
+    height: 50vh;
+}
+
+.h-75vh {
+    height: 75vh;
+}
+
+.h-100vh {
+    height: 100vh;
+}

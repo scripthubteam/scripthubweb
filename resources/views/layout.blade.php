@@ -45,13 +45,11 @@
 </head>
 <body>
     <!-- Header Section -->
-    <header class="d-flex flex-column align-items-stretch justify-content-center p-3">
+    <header class="d-flex flex-column flex-sm-row justify-content-center justify-content-sm-between align-items-sm-center align-items-between p-3">
+        <figure id="logo-scripthub" class="figure d-none d-sm-block">
+            <img src="/assets/server-ui/logo-cord-raw.png" alt="Logo Script Hub Team" class="figure-img img-fluid">
+        </figure>
         <ul class="nav nav-dark nav-fill align-items-center">
-            <li class="nav-item d-none d-sm-block justify-content-center">
-                <figure id="logo-scripthub">
-                    <img class="w-100" src="/assets/server-ui/logo-cord-raw.png" alt="Logo Script Hub Team">
-                </figure>
-            </li>
             <li class="nav-item">
                 <a href="https://scripthubteam.github.io/docs/" target="_blank" class="nav-link btn btn-info text-light p-3">
                     <span class="fa fa-book"></span> Documentación
@@ -90,5 +88,8 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <!-- AnimeJS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js"></script>
+    @yield('scripts')
 </body>
 </html>

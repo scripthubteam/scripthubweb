@@ -17,4 +17,16 @@
 @stop
 
 @section('footer_section')
+@stop
+
+@section('scripts')
+<script>
+    var logoRotate = anime({
+        targets: '#logo-scripthub',
+        translateX: '100%',
+        rotate: '2turn',
+        scale: 1.5,
+        easing: 'easeInOutQuad'
+    });
+</script>
 @endsection

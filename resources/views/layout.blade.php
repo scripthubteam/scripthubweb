@@ -44,33 +44,44 @@
         <title>@yield('title')</title>
 </head>
 <body>
+    <!-- Navigator -->
+    <nav class="navbar navbar-expand-lg" id="navigatorHeader">
+        <div class="container">
+            <a href="#" class="navbar-brand" id="logo-scripthub">
+                <img src="/assets/server-ui/logo-cord-raw.png" alt="Logo Script Hub Team">
+            </a>
+            <button class="navbar-toggler navbar-toggler-right text-light border border-light" type="button" data-toggle="collapse" data-target="#navigatorMenu" aria-controls="navigatorMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon fas fa-bars"></span> Menu
+            </button>
+            <div class="collapse navbar-collapse" id="navigatorMenu">
+                <ul class="navbar-nav navbar-dark ml-auto">
+                    <li class="nav-item">
+                        <a href="https://scripthubteam.github.io/docs/" target="_blank" class="nav-link btn btn-info text-light p-sm-3 mt-2 mt-sm-0 ml-0 ml-sm-2">
+                            <span class="fa fa-book"></span> Documentación
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="https://www.patreon.com/scripthubteam" target="_blank" class="nav-link btn text-light p-sm-3 mt-2 mt-sm-0 ml-0 ml-sm-2">
+                            <span class="fab fa-patreon"></span> Patreon
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="https://discordapp.com/invite/VK2V7Yk" target="_blank" class="nav-link btn text-light p-sm-3 mt-2 mt-sm-0 ml-0 ml-sm-2">
+                            <span class="fab fa-discord"></span> Discord
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/register/" class="nav-link btn btn-secondary text-light p-sm-3 mt-2 mt-sm-0 ml-0 ml-sm-2">
+                            <span class="fas fa-user"></span> Iniciar sesión
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
     <!-- Header Section -->
-    <header class="d-flex flex-column flex-sm-row justify-content-center justify-content-sm-between align-items-sm-center align-items-between p-3">
-        <figure id="logo-scripthub" class="figure d-none d-sm-block">
-            <img src="/assets/server-ui/logo-cord-raw.png" alt="Logo Script Hub Team" class="figure-img img-fluid">
-        </figure>
-        <ul class="nav nav-dark nav-fill align-items-center">
-            <li class="nav-item">
-                <a href="https://scripthubteam.github.io/docs/" target="_blank" class="nav-link btn btn-info text-light p-3">
-                    <span class="fa fa-book"></span> Documentación
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="https://www.patreon.com/scripthubteam" target="_blank" class="nav-link btn text-light p-3 ml-2">
-                    <span class="fab fa-patreon"></span> Patreon
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="https://discordapp.com/invite/VK2V7Yk" target="_blank" class="nav-link btn text-light p-3 ml-2">
-                    <span class="fab fa-discord"></span> Discord
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="/register/" target="_blank" class="nav-link btn btn-secondary text-light p-3 ml-0 ml-sm-2 mt-2 mt-sm-0">
-                    <span class="fas fa-user"></span> Iniciar sesión
-                </a>
-            </li>
-        </ul>
+    <header class="bg-white">
         @yield('header_content')
     </header>
 

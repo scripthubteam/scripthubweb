@@ -1,5 +1,24 @@
-/* Body */
+/* Smooth Scroll */
+html {
+    scroll-behavior: smooth;
+}
+/* Background Color */
 body {
+    background-color: #212121;
+}
+
+/* Color Header */
+header.header {
+    background-color: #212121
+}
+
+/* Color Main */
+main.main {
+    background-color: #fff;
+}
+
+/* Color Footer */
+footer.footer {
     background-color: #212121;
 }
 
@@ -8,30 +27,47 @@ a#logo-scripthub img {
     width: 10vh;
 }
 
+/* Information */
+a.nav-link#itemInfo {
+    background-color: #f0f8ff;
+}
+a.nav-link#itemInfo:hover {
+    background-color: #dae1e7;
+}
+
 /* Documentation */
-a.nav-link[href="https://scripthubteam.github.io/docs/"] {
+a.nav-link#itemDoc {
     background-color: #33b5e5;
 }
-a.nav-link[href="https://scripthubteam.github.io/docs/"]:hover {
+a.nav-link#itemDoc:hover {
     background-color: #2c9ec7;
 }
 
 /* Patreon */
-a.nav-link[href^="https://www.patreon.com/"] {
+a.nav-link#itemPatreon {
     background-color: #F80;
 }
-a.nav-link[href^="https://www.patreon.com/"]:hover {
+a.nav-link#itemPatreon:hover {
     background-color: rgb(224, 121, 3);
 }
 
 /* Discord */
-a.nav-link[href^="https://discordapp.com/"] {
+a.nav-link#itemDiscord {
     background-color: #7289DA;
 }
-a.nav-link[href^="https://discordapp.com/"]:hover {
+a.nav-link#itemDiscord:hover {
     background-color: rgb(98, 117, 189);
 }
 
+/* Register */
+a.nav-link#itemLogin {
+    background-color: #5a6268;
+}
+a.nav-link#itemLogin:hover {
+    background-color: #4b5257;
+}
+
+/* Custom Sizes */
 .w-25vh {
     width: 25vh;
 }

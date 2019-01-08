@@ -40,6 +40,7 @@
 
     <!-- Personal Style -->
     <link rel="stylesheet" href="/css/layout.css">
+    @yield('stylesheets')
 
         <title>@yield('title')</title>
 </head>
@@ -47,7 +48,7 @@
     <!-- Navigator -->
     <nav class="navbar navbar-expand-lg" id="navigatorHeader">
         <div class="container">
-            <a href="#" class="navbar-brand" id="logo-scripthub">
+            <a href="/" class="navbar-brand" id="logo-scripthub">
                 <img src="/assets/server-ui/logo-cord-raw.png" alt="Logo Script Hub Team">
             </a>
             <button class="navbar-toggler navbar-toggler-right text-light border border-light" type="button" data-toggle="collapse" data-target="#navigatorMenu" aria-controls="navigatorMenu" aria-expanded="false" aria-label="Toggle navigation">
@@ -55,23 +56,28 @@
             </button>
             <div class="collapse navbar-collapse" id="navigatorMenu">
                 <ul class="navbar-nav navbar-dark ml-auto">
-                    <li class="nav-item">
-                        <a href="https://scripthubteam.github.io/docs/" target="_blank" class="nav-link btn btn-info text-light p-sm-3 mt-2 mt-sm-0 ml-0 ml-sm-2">
+                    <li class="nav-item mt-2 mt-lg-0 ml-0 ml-lg-2">
+                        <a href="/#informacion" class="nav-link btn p-lg-3" id="itemInfo">
+                            <span class="fas fa-info"></span> Información
+                        </a>
+                    </li>
+                    <li class="nav-item mt-2 mt-lg-0 ml-0 ml-lg-2">
+                        <a href="https://scripthubteam.github.io/docs/" target="_blank" class="nav-link btn text-light p-lg-3" id="itemDoc">
                             <span class="fa fa-book"></span> Documentación
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="https://www.patreon.com/scripthubteam" target="_blank" class="nav-link btn text-light p-sm-3 mt-2 mt-sm-0 ml-0 ml-sm-2">
+                    <li class="nav-item mt-2 mt-lg-0 ml-0 ml-lg-2">
+                        <a href="https://www.patreon.com/scripthubteam" target="_blank" class="nav-link btn text-light p-lg-3" id="itemPatreon">
                             <span class="fab fa-patreon"></span> Patreon
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="https://discordapp.com/invite/VK2V7Yk" target="_blank" class="nav-link btn text-light p-sm-3 mt-2 mt-sm-0 ml-0 ml-sm-2">
+                    <li class="nav-item mt-2 mt-lg-0 ml-0 ml-lg-2">
+                        <a href="https://discordapp.com/invite/VK2V7Yk" target="_blank" class="nav-link btn text-light p-lg-3" id="itemDiscord">
                             <span class="fab fa-discord"></span> Discord
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="/register/" class="nav-link btn btn-secondary text-light p-sm-3 mt-2 mt-sm-0 ml-0 ml-sm-2">
+                    <li class="nav-item mt-2 mt-lg-0 ml-0 ml-lg-2">
+                        <a href="/login/" class="nav-link btn text-light p-lg-3" id="itemLogin">
                             <span class="fas fa-user"></span> Iniciar sesión
                         </a>
                     </li>
@@ -81,17 +87,34 @@
     </nav>
 
     <!-- Header Section -->
-    <header class="bg-white">
+    <header class="header">
         @yield('header_content')
     </header>
 
     <!-- Main Section -->
-    <main class="d-flex flex-column bg-white align-items-center justify-content-around h-100vh p-4">
+    <main class="main">
         @yield('main_content')
     </main>
 
     <!-- Footer Section -->
-    <footer class="d-flex flex-row">
+    <footer class="footer sticky-bottom">
+        <div class="container p-3">
+            <p class="text-center text-light font-italic">&copy; Script Hub Team 2019. All Rights Reserved.</p>
+            <ul class="list-inline d-flex flex-row justify-content-center">
+                <li class="list-inline-item">
+                    <a class="link text-light" target="_blank" href="https://github.com/scripthubteam">Script Hub Team GitHub</a>
+                </li>
+                <li class="list-inline-item">
+                    <a class="link text-light" target="_blank" href="https://scripthubteam.github.io/docs/">Documentación</a>
+                </li>
+                <li class="list-inline-item">
+                    <a class="link text-light" target="_blank" href="https://www.patreon.com/scripthubteam">Patreon</a>
+                </li>
+                <li class="list-inline-item">
+                    <a class="link text-light" target="_blank" href="https://discordapp.com/invite/VK2V7Yk">Discord</a>
+                </li>
+            </ul>
+        </div>
         @yield('footer_content')
     </footer>
 

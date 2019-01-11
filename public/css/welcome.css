@@ -1,7 +1,7 @@
-section#informacion {
+section.informacion {
     background-color: #fff;
 }
 
-section#documentacion {
+section.documentacion {
     background-color: #2c9ec7;
 }

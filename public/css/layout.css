@@ -2,29 +2,16 @@
 html {
     scroll-behavior: smooth;
 }
-/* Background Color */
-body {
-    background-color: #212121;
-}
 
-/* Color Header */
-header.header {
-    background-color: #212121
-}
-
-/* Color Main */
-main.main {
-    background-color: #fff;
-}
-
-/* Color Footer */
-footer.footer {
-    background-color: #212121;
+/* New Color Palette */
+.bg-primary {
+    background-color: #212121 !important;
 }
 
 /* Logo */
 a#logo-scripthub img {
-    width: 10vh;
+    height: 6vh;
+    width: 6vh;
 }
 
 /* Information */
@@ -48,7 +35,7 @@ a.nav-link#itemPatreon {
     background-color: #F80;
 }
 a.nav-link#itemPatreon:hover {
-    background-color: rgb(224, 121, 3);
+    background-color: #e07903;
 }
 
 /* Discord */
@@ -56,7 +43,7 @@ a.nav-link#itemDiscord {
     background-color: #7289DA;
 }
 a.nav-link#itemDiscord:hover {
-    background-color: rgb(98, 117, 189);
+    background-color: #6275bd;
 }
 
 /* Register */
@@ -98,4 +85,165 @@ a.nav-link#itemLogin:hover {
 
 .h-100vh {
     height: 100vh;
+}
+
+/* Custom Text Style */
+.text-start {
+    text-align: start;
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+    .text-sm-start {
+        text-align: start;
+    }
+
+    .w-sm-25vh {
+        width: 25vh;
+    }
+
+    .w-sm-50vh {
+        width: 50vh;
+    }
+
+    .w-sm-75vh {
+        width: 75vh;
+    }
+
+    .w-sm-100vh {
+        width: 100vh;
+    }
+
+    .h-sm-25vh {
+        height: 25vh;
+    }
+
+    .h-sm-50vh {
+        height: 50vh;
+    }
+
+    .h-sm-75vh {
+        height: 75vh;
+    }
+
+    .h-sm-100vh {
+        height: 100vh;
+    }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+    .text-md-start {
+        text-align: start;
+    }
+
+    .w-md-25vh {
+        width: 25vh;
+    }
+
+    .w-md-50vh {
+        width: 50vh;
+    }
+
+    .w-md-75vh {
+        width: 75vh;
+    }
+
+    .w-md-100vh {
+        width: 100vh;
+    }
+
+    .h-md-25vh {
+        height: 25vh;
+    }
+
+    .h-md-50vh {
+        height: 50vh;
+    }
+
+    .h-md-75vh {
+        height: 75vh;
+    }
+
+    .h-md-100vh {
+        height: 100vh;
+    }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+    .text-lg-start {
+        text-align: start;
+    }
+
+    .w-lg-25vh {
+        width: 25vh;
+    }
+
+    .w-lg-50vh {
+        width: 50vh;
+    }
+
+    .w-lg-75vh {
+        width: 75vh;
+    }
+
+    .w-lg-100vh {
+        width: 100vh;
+    }
+
+    .h-lg-25vh {
+        height: 25vh;
+    }
+
+    .h-lg-50vh {
+        height: 50vh;
+    }
+
+    .h-lg-75vh {
+        height: 75vh;
+    }
+
+    .h-lg-100vh {
+        height: 100vh;
+    }
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+    .text-xl-start {
+        text-align: start;
+    }
+
+    .w-xl-25vh {
+        width: 25vh;
+    }
+
+    .w-xl-50vh {
+        width: 50vh;
+    }
+
+    .w-xl-75vh {
+        width: 75vh;
+    }
+
+    .w-xl-100vh {
+        width: 100vh;
+    }
+
+    .h-xl-25vh {
+        height: 25vh;
+    }
+
+    .h-xl-50vh {
+        height: 50vh;
+    }
+
+    .h-xl-75vh {
+        height: 75vh;
+    }
+
+    .h-xl-100vh {
+        height: 100vh;
+    }
 }

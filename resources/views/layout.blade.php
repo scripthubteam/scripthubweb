@@ -44,9 +44,9 @@
 
         <title>@yield('title')</title>
 </head>
-<body>
+<body class="bg-primary">
     <!-- Navigator -->
-    <nav class="navbar navbar-expand-lg" id="navigatorHeader">
+    <nav class="navbar navbar-expand-lg sticky-top bg-primary" id="navigatorHeader">
         <div class="container">
             <a href="/" class="navbar-brand" id="logo-scripthub">
                 <img src="/assets/server-ui/logo-cord-raw.png" alt="Logo Script Hub Team">
@@ -57,27 +57,27 @@
             <div class="collapse navbar-collapse" id="navigatorMenu">
                 <ul class="navbar-nav navbar-dark ml-auto">
                     <li class="nav-item mt-2 mt-lg-0 ml-0 ml-lg-2">
-                        <a href="/#informacion" class="nav-link btn p-lg-3" id="itemInfo">
+                        <a href="/#informacion" class="nav-link btn pt-lg-2" id="itemInfo">
                             <span class="fas fa-info"></span> Información
                         </a>
                     </li>
                     <li class="nav-item mt-2 mt-lg-0 ml-0 ml-lg-2">
-                        <a href="https://scripthubteam.github.io/docs/" target="_blank" class="nav-link btn text-light p-lg-3" id="itemDoc">
+                        <a href="/#documentacion" class="nav-link btn text-light pt-lg-2" id="itemDoc">
                             <span class="fa fa-book"></span> Documentación
                         </a>
                     </li>
                     <li class="nav-item mt-2 mt-lg-0 ml-0 ml-lg-2">
-                        <a href="https://www.patreon.com/scripthubteam" target="_blank" class="nav-link btn text-light p-lg-3" id="itemPatreon">
+                        <a href="https://www.patreon.com/scripthubteam" target="_blank" class="nav-link btn text-light pt-lg-2" id="itemPatreon">
                             <span class="fab fa-patreon"></span> Patreon
                         </a>
                     </li>
                     <li class="nav-item mt-2 mt-lg-0 ml-0 ml-lg-2">
-                        <a href="https://discordapp.com/invite/VK2V7Yk" target="_blank" class="nav-link btn text-light p-lg-3" id="itemDiscord">
+                        <a href="https://discordapp.com/invite/VK2V7Yk" target="_blank" class="nav-link btn text-light pt-lg-2" id="itemDiscord">
                             <span class="fab fa-discord"></span> Discord
                         </a>
                     </li>
                     <li class="nav-item mt-2 mt-lg-0 ml-0 ml-lg-2">
-                        <a href="/login/" class="nav-link btn text-light p-lg-3" id="itemLogin">
+                        <a href="/login/" class="nav-link btn text-light pt-lg-2" id="itemLogin">
                             <span class="fas fa-user"></span> Iniciar sesión
                         </a>
                     </li>
@@ -87,17 +87,17 @@
     </nav>
 
     <!-- Header Section -->
-    <header class="header">
+    <header class="header bg-primary">
         @yield('header_content')
     </header>
 
     <!-- Main Section -->
-    <main class="main">
+    <main class="main bg-white">
         @yield('main_content')
     </main>
 
     <!-- Footer Section -->
-    <footer class="footer sticky-bottom">
+    <footer class="footer bg-primary sticky-bottom">
         <div class="container p-3">
             <p class="text-center text-light font-italic">&copy; Script Hub Team 2019. All Rights Reserved.</p>
             <ul class="list-inline d-flex flex-row justify-content-center">

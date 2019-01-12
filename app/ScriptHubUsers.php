@@ -18,7 +18,8 @@ class ScriptHubUsers extends Model
         'username',
         'email',
         'password',
-        'description'
+        'description',
+        'discord_users_id'
     ];
 
     /**
@@ -36,6 +37,6 @@ class ScriptHubUsers extends Model
      * @return  discord_user The Discord User of the ScriptHub User.
      */
     public function discord_user() {
-        return $this->hasOne('App\DiscordUsers', 'scripthub_users_id', 'id');
+        return $this->belongsTo('App\DiscordUsers', 'discord_users_id', 'id');
     }
 }

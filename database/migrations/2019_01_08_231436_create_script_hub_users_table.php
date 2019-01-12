@@ -22,6 +22,10 @@ class CreateScriptHubUsersTable extends Migration
             $table->text('description')->nullable()->comment('Description of the user.');
             $table->timestamps();
             $table->rememberToken()->comment('Token used for password recover.');
+            $table->string('discord_users_id', 50)->comment('The Discord User associated with this Script Hub User.');
+
+            // Setting up Foreing Key
+            $table->foreign('discord_users_id')->references('id')->on('discord_users');
         });
     }
 

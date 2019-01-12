@@ -24,6 +24,11 @@ class ScriptHubUsers extends Model
     ];
 
     /**
+     * Declares which attributes are dates.
+     */
+    protected $dates = ['created_at', 'updated_at'];
+
+    /**
      * The attributes that should be hidden for arrays.
      *
      * @var array

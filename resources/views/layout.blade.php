@@ -9,37 +9,37 @@
     <!-- Open Graph general (Facebook, Pinterest & Google+) -->
     <meta property="og:title" content="Script Hub - Documentación y Bots">
     <meta property="og:description" content="Programación de bots con Discord en español.">
-    <meta property="og:image" content="{{ url('/', 'assets/server-ui/logo-cord-re.png') }}">
+    <meta property="og:image" content="{{ url('/').'/assets/server-ui/logo-cord-re.png' }}">
     <meta property="og:url" content="https://scripthubteam.github.io/">
     <meta property="og:site_name" content="Script Hub">
     <meta property="og:type" content="website">
 
     <!-- Motor de búsqueda -->
     <meta name="description" content="Script Hub - Documentación y Bots">
-    <meta name="image" content="{{ url('/', 'assets/server-ui/logo-cord-re.png') }}">
+    <meta name="image" content="{{ url('/')."/assets/server-ui/logo-cord-re.png" }}">
     <link rel="canonical" href="https://scripthubteam.github.io/" />
 
     <!-- Schema.org Google -->
     <meta itemprop="name" content="Script Hub - Documentación y Bots">
     <meta itemprop="description" content="Programación de bots con Discord en español.">
-    <meta itemprop="image" content="{{ url('/', 'assets/server-ui/assets/logo-cord-re.png') }}">
+    <meta itemprop="image" content="{{ url('/').'/assets/server-ui/assets/logo-cord-re.png' }}">
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Script Hub - Documentación y Bots">
     <meta name="twitter:description" content="Programación de bots con Discord en español.">
-    <meta name="twitter:image" content="{{ url('/', 'assets/server-ui/logo-cord-re.png') }}">
+    <meta name="twitter:image" content="{{ url('/').'/assets/server-ui/logo-cord-re.png') }}">
 
     <!-- Web Stuff -->
     <link rel="canonical" href="https://scripthubteam.github.io/" />
-    <link rel="shortcut icon" href="{{ url('/', 'favicon.png') }}">
+    <link rel="shortcut icon" href="{{ url('/').'/favicon.png') }}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
 
     <!-- Bootstrap Stuff -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
     <!-- Personal Style -->
-    <link rel="stylesheet" href="{{ url('/', 'css/layout.css') }}">
+    <link rel="stylesheet" href="{{ url('/').'/css/layout.css') }}">
     @yield('stylesheets')
 
         <title>@yield('title')</title>
@@ -55,7 +55,7 @@
     <nav class="navbar navbar-expand-lg sticky-top bg-primary" id="navigatorHeader">
         <div class="container">
             <a href="{{ route('home') }}" class="navbar-brand" id="logo-scripthub">
-                <img src="{{ url('/', 'assets/server-ui/logo-cord-raw.png') }}" alt="Logo Script Hub Team">
+                <img src="{{ url('/').'/assets/server-ui/logo-cord-raw.png') }}" alt="Logo Script Hub Team">
             </a>
             <button class="navbar-toggler navbar-toggler-right text-light border border-light" type="button" data-toggle="collapse" data-target="#navigatorMenu" aria-controls="navigatorMenu" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon fas fa-bars"></span> Menu

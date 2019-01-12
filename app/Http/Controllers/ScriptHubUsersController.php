@@ -35,7 +35,8 @@ class ScriptHubUsersController extends Controller
      */
     public function store(Request $request)
     {
-        ScriptHubUsers::create($request);
+        ScriptHubUsers::create($request->all());
+        return redirect('login');
     }
 
     /**

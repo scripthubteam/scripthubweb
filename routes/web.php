@@ -13,10 +13,12 @@
 
 // PagesControllers
 Route::get('/', 'PagesController@index')->name('home');
-Route::get('login', 'PagesController@login')->name('login');
 
 // DiscordUsersControllers
 Route::get('discord/users', 'DiscordUsersController@index');
 Route::get('discord/users/{id}', 'DiscordUsersController@show');
 
 // ScriptHubUsersControllers
+Route::get('login', 'ScriptHubUsersController@index')->name('login');
+Route::get('register', 'ScriptHubUsersController@create')->name('users.register');
+Route::post('register', 'ScriptHubUsersController@store');

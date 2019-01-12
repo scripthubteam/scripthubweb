@@ -16,7 +16,7 @@ class CreateDiscordUsersTable extends Migration
         Schema::create('discord_users', function (Blueprint $table) {
             $table->string('id', 50)->comment('Discord ID used as priamry key.');
             $table->string('nick', 45)->comment('Discord Username');
-            $table->text('avatar_url')->comment('URL to Avatar if needed.');
+            $table->text('avatar_url')->nullable()->comment('URL to Avatar if needed.');
             $table->timestamp('created_at')->comment('Declares when this Discord User was created.');
 
             // Setting primary key

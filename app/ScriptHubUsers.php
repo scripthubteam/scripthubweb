@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Hash;
 
 class ScriptHubUsers extends Model
 {
@@ -38,5 +39,12 @@ class ScriptHubUsers extends Model
      */
     public function discord_user() {
         return $this->belongsTo('App\DiscordUsers', 'discord_users_id', 'id');
+    }
+
+    /**
+     * Mutates the password before saving it.
+     */
+    public function setPasswordAttribute($password) {
+        $this->attributes['password'] = Hash::make($password);
     }
 }

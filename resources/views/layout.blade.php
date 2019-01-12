@@ -9,7 +9,7 @@
     <!-- Open Graph general (Facebook, Pinterest & Google+) -->
     <meta property="og:title" content="Script Hub - Documentación y Bots">
     <meta property="og:description" content="Programación de bots con Discord en español.">
-    <meta property="og:image" content="{{ secure_url('/').'/assets/server-ui/logo-cord-re.png' }}">
+    <meta property="og:image" content="{{ url('/').'/assets/server-ui/logo-cord-re.png' }}">
     <meta property="og:url" content="https://scripthubteam.github.io/">
     <meta property="og:site_name" content="Script Hub">
     <meta property="og:type" content="website">

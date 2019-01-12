@@ -6,9 +6,6 @@
 
 @section('title', "Script Hub - Documentación y Bots")
 
-@section('header_content')
-@stop
-
 @section('main_content')
 <section class="informacion bg-white text-center" id="informacion">
     <div class="container-fluid h-lg-100vh">
@@ -78,9 +75,6 @@
         </div>
     </div>
 </section>
-@stop
-
-@section('footer_section')
 @stop
 
 @section('scripts')

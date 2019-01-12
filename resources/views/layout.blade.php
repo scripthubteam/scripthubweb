@@ -57,7 +57,7 @@
             <div class="collapse navbar-collapse" id="navigatorMenu">
                 <ul class="navbar-nav navbar-dark ml-auto">
                     <li class="nav-item mt-2 mt-lg-0 ml-0 ml-lg-2">
-                        <a href="/#informacion" class="nav-link btn pt-lg-2" id="itemInfo">
+                        <a href="/" class="nav-link btn pt-lg-2" id="itemInfo">
                             <span class="fas fa-info"></span> Información
                         </a>
                     </li>

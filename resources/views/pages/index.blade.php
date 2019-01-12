@@ -10,7 +10,7 @@
 <section class="informacion bg-white text-center" id="informacion">
     <div class="container-fluid h-lg-100vh">
         <div class="row align-items-center justify-content-center p-5">
-            <img src="{{ url('/').'/assets/logo-bn.png' }}" alt="Script Hub - Documentación y Bots" class="img-fluid rounded">
+            <img src="{{ secure_url('/').'/assets/logo-bn.png' }}" alt="Script Hub - Documentación y Bots" class="img-fluid rounded">
         </div>
         <div class="row align-items-center justify-content-center">
                 <h2 class="font-weight-light col-11 col-sm-8">Programación de bots con Discord en Español.</h2>
@@ -78,5 +78,5 @@
 @stop
 
 @section('scripts')
-<script src="{{ url('/').'/js/home.js' }}"></script>
+<script src="{{ secure_url('/').'/js/home.js' }}"></script>
 @endsection

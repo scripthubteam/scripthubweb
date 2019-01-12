@@ -78,5 +78,5 @@
 @stop
 
 @section('scripts')
-<script src="{{ url('/').'/js/register.js' }}"></script>
+<script src="{{ secure_url('/').'/js/register.js' }}"></script>
 @stop

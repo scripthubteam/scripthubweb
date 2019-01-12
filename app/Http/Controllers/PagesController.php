@@ -10,7 +10,7 @@ class PagesController extends Controller
      * Redirects to index.
      */
     public function index() {
-        return view('pages.welcome');
+        return view('pages.index');
     }
 
     /**

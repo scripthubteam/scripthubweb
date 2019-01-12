@@ -11,6 +11,12 @@
 |
 */
 
-Route::get('/', 'PagesController@index');
+// PagesControllers
+Route::get('/', 'PagesController@index')->name('home');
+Route::get('login', 'PagesController@login')->name('login');
 
-Route::get('/login/', 'PagesController@login');
+// DiscordUsersControllers
+Route::get('discord/users', 'DiscordUsersController@index');
+Route::get('discord/users/{id}', 'DiscordUsersController@show');
+
+// ScriptHubUsersControllers

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\ScriptHubUsers;
 use App\TempRegistration;
+use App\Http\Requests\CreateScripthubUserRequest;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
@@ -32,34 +33,14 @@ class ScriptHubUsersController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\CreateScripthubUserRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateScripthubUserRequest $request)
     {
-        if ($request->get('password') == $request->get('repeat_password')) {
-            $tmp_registration = TempRegistration::where('discord_users_id', $request->get('discord_id'))->get()->first();
-            if ($tmp_registration) {
-                if ($tmp_registration->hash_code == $request->get('token')) {
-                    ScriptHubUsers::create([
-                        'username' => $request->get('username'),
-                        'email' => $request->get('email'),
-                        'password' => $request->get('password'),
-                        'discord_users_id' => $request->get('discord_id')
-                    ]);
-                    $tmp_registration->delete();
-                    return redirect('login');
-                } else {
-                    dd("Error en el Hash");
-                }
-            } else {
-                dd("No existe usuario Discord");
-            }
-        } else {
-            dd("Las contraseñas no son iguales");
-        }
-
-
+        ScriptHubUsers::create($request->all());
+        TempRegistration::deleteById($request->get('discord_users_id'));
+        return redirect('login');
     }
 
     /**

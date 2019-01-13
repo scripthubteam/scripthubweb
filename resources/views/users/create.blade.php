@@ -45,8 +45,8 @@
                 <small id="passwordHelp" class="d-none form-text text-danger">Las contraseñas no son iguales</small>
             </div>
             <div class="form-group row">
-                {!! Form::label('discord_id', 'Discord ID') !!}
-                {!! Form::text('discord_id', '', [
+                {!! Form::label('discord_users_id', 'Discord ID') !!}
+                {!! Form::text('discord_users_id', '', [
                     'class' => 'form-control',
                     'placeholder' => 'Tu ID de Discord',
                     'aria-describedby' => 'discordIdHelp',
@@ -55,8 +55,8 @@
                 <small id="discordIdHelp" class="form-text text-muted">El Bot debería indicártelo.</small>
             </div>
             <div class="form-group row">
-                {!! Form::label('token', 'Token') !!}
-                {!! Form::password('token', [
+                {!! Form::label('hash_code', 'Token') !!}
+                {!! Form::password('hash_code', [
                     'class' => 'form-control',
                     'placeholder' => 'Código secreto',
                     'aria-describedby' => 'tokenHelp',
@@ -74,6 +74,13 @@
             </div>
             {!! Form::close() !!}
         </div>
+        @if ($errors->any())
+            <ul class="list-group list-group-flush">
+                @foreach ($errors->all() as $error)
+                    <li class="list-group-item list-group-item-danger">{{ $error }}</li>
+                @endforeach
+            </ul>
+        @endif
     </div>
 @stop
 

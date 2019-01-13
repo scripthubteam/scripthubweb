@@ -10,6 +10,25 @@ class TempRegistration extends Model
     protected $table = 'tmp_registration';
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'hash_code',
+        'discord_users_id',
+    ];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'hash_code',
+    ];
+
+    /**
      * Declares when to use timestamps.
      *
      * @var boolean

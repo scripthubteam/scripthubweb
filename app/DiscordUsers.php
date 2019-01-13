@@ -32,4 +32,13 @@ class DiscordUsers extends Model
      * @var boolean
      */
     public $timestamps = false;
+
+    /**
+     * Gets the Script Hub User.
+     *
+     * @return  App\ScriptHubUsers scripthub_user
+     */
+    public function scripthub_user() {
+        return $this->hasOne('App\ScriptHubUsers', 'discord_users_id', 'id');
+    }
 }

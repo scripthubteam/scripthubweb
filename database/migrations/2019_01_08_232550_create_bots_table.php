@@ -21,7 +21,10 @@ class CreateBotsTable extends Migration
             $table->unsignedInteger('owner_scripthub_user_id')->comment('The ID for the Script Hub User owner.');
 
             // Setting up foreing keys
-            $table->foreign('owner_scripthub_user_id')->references('id')->on('scripthub_users');
+            $table->foreign('owner_scripthub_user_id')
+                  ->references('id')
+                  ->on('scripthub_users')
+                  ->onDelete('cascade');
         });
     }
 

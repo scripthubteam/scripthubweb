@@ -4,9 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class ScriptHubUsers extends Model
+class ScriptHubUsers extends Authenticatable
 {
+    use Notifiable;
+
     // Table to connect
     protected $table = 'scripthub_users';
 

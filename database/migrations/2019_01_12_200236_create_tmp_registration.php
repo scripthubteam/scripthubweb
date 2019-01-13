@@ -21,7 +21,10 @@ class CreateTmpRegistration extends Migration
             $table->string('discord_users_id', 50)->unique()->comment('The ID the references the Discord User.');
 
             // Setting up Foreign Key
-            $table->foreign('discord_users_id')->references('id')->on('discord_users');
+            $table->foreign('discord_users_id')
+                  ->references('id')
+                  ->on('discord_users')
+                  ->onDelete('cascade');
         });
     }
 

@@ -16,7 +16,8 @@ class CreateScriptHubUsersTable extends Migration
         Schema::create('scripthub_users', function (Blueprint $table) {
             $table->increments('id')->comment('Identifier for row.');
             $table->string('username', 45)->unique()->comment('The username used for login.');
-            $table->string('email', 45)->unique()->comment('The email used for register.');
+            $table->string('email', 100)->unique()->comment('The email used for register.');
+            $table->timestamp('email_verified_at')->nullable()->comment('Security to verify that email exists');
             $table->boolean('is_admin')->default(false)->comment('Declares if user is admin.');
             $table->string('password')->comment('The password used for login');
             $table->text('description')->nullable()->comment('Description of the user.');
@@ -25,7 +26,10 @@ class CreateScriptHubUsersTable extends Migration
             $table->string('discord_users_id', 50)->comment('The Discord User associated with this Script Hub User.');
 
             // Setting up Foreing Key
-            $table->foreign('discord_users_id')->references('id')->on('discord_users');
+            $table->foreign('discord_users_id')
+                  ->references('id')
+                  ->on('discord_users')
+                  ->onDelete('cascade');
         });
     }
 

@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <!-- Open Graph general (Facebook, Pinterest & Google+) -->
     <meta property="og:title" content="Script Hub - Documentación y Bots">
     <meta property="og:description" content="Programación de bots con Discord en español.">
@@ -42,19 +45,19 @@
     <link rel="stylesheet" href="{{ url('/').'/css/layout.css' }}">
     @yield('stylesheets')
 
-        <title>@yield('title')</title>
+    <title>{{ Config::get('app.name', 'Script Hub Team') }} - @yield('title')</title>
 </head>
 <body class="bg-primary">
     {{-- Checking if User is in Home --}}
-    @if (Request::route()->getName() != 'home')
-        @php ($link = route('home'))
+    @if (Request::route()->getName() != 'root')
+        @php ($link = route('root'))
     @else
         @php ($link = "")
     @endif
     <!-- Navigator -->
     <nav class="navbar navbar-expand-lg sticky-top bg-primary" id="navigatorHeader">
         <div class="container">
-            <a href="{{ route('home') }}" class="navbar-brand" id="logo-scripthub">
+            <a href="{{ route('root') }}" class="navbar-brand" id="logo-scripthub">
                 <img src="{{ url('/').'/assets/server-ui/logo-cord-raw.png' }}" alt="Logo Script Hub Team">
             </a>
             <button class="navbar-toggler navbar-toggler-right text-light border border-light" type="button" data-toggle="collapse" data-target="#navigatorMenu" aria-controls="navigatorMenu" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,7 +66,7 @@
             <div class="collapse navbar-collapse" id="navigatorMenu">
                 <ul class="navbar-nav navbar-dark ml-auto">
                     <li class="nav-item mt-2 mt-lg-0 ml-0 ml-lg-2">
-                        <a href="{{ route('home') }}" class="nav-link btn pt-lg-2" id="itemInfo">
+                        <a href="{{ route('root') }}" class="nav-link btn pt-lg-2" id="itemInfo">
                             <span class="fas fa-info"></span> Información
                         </a>
                     </li>
@@ -82,11 +85,37 @@
                             <span class="fab fa-discord"></span> Discord
                         </a>
                     </li>
-                    <li class="nav-item mt-2 mt-lg-0 ml-0 ml-lg-2">
-                        <a href="{{ route('login') }}" class="nav-link btn text-light pt-lg-2" id="itemLogin">
-                            <span class="fas fa-user"></span> Iniciar sesión
-                        </a>
-                    </li>
+                        @guest
+                            <li class="nav-item mt-2 mt-lg-0 ml-0 ml-lg-2">
+                                <a href="{{ route('login') }}" class="nav-link btn text-light pt-lg-2" id="itemLogin">
+                                    <span class="fas fa-user"></span> Iniciar sesión
+                                </a>
+                            </li>
+                        @else
+                            <li class="nav-item dropdown mt-2 mt-lg-0 ml-0 ml-lg-2">
+                                <a class="nav-link dropdown-toggle btn text-light pt-lg-2" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" id="itemLogin">
+                                    <span class="fas fa-user"></span> {{ Auth::user()->username }}
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a href="{{ route('home') }}" class="dropdown-item">
+                                        Home
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a href="{{ route('logout') }}" class="dropdown-item"
+                                        onclick="event.preventDefault();
+                                                 document.getElementById('logout-form').submit();">
+                                        Salir
+                                    </a>
+                                    {{ Form::open([
+                                        'route' => 'logout',
+                                        'class' => 'd-none',
+                                        'id' => 'logout-form'
+                                    ]) }}
+                                    @csrf
+                                    {{ Form::close() }}
+                                </div>
+                            </li>
+                        @endguest
                 </ul>
             </div>
         </div>

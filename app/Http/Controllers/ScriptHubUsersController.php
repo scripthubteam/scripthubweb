@@ -10,6 +10,17 @@ use Illuminate\Http\Request;
 
 class ScriptHubUsersController extends Controller
 {
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -17,30 +28,7 @@ class ScriptHubUsersController extends Controller
      */
     public function index()
     {
-        return view('users.index');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('users.create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  App\Http\Requests\CreateScripthubUserRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(CreateScripthubUserRequest $request)
-    {
-        ScriptHubUsers::create($request->all());
-        TempRegistration::deleteById($request->get('discord_users_id'));
-        return redirect('login');
+        return view('users.home');
     }
 
     /**

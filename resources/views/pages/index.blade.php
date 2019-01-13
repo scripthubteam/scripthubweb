@@ -1,10 +1,10 @@
-@extends('layout')
+@extends('layouts.main')
 
 @section('stylesheets')
 <link rel="stylesheet" href="/css/welcome.css">
 @stop
 
-@section('title', "Script Hub - Documentación y Bots")
+@section('title', "Documentación y Bots")
 
 @section('main_content')
 <section class="informacion bg-white text-center" id="informacion">

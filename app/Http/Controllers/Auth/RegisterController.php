@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
+// use App\User;
+use App\ScriptHubUsers;
+use App\TempRegistration;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Http\Requests\CreateScripthubUserRequest;
 
 class RegisterController extends Controller
 {
@@ -41,6 +44,16 @@ class RegisterController extends Controller
     }
 
     /**
+     * Show the application registration form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showRegistrationForm()
+    {
+        return view('users.register');
+    }
+
+    /**
      * Get a validator for an incoming registration request.
      *
      * @param  array  $data
@@ -48,25 +61,33 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:6', 'confirmed'],
-        ]);
+        $rules = [
+            'username' => 'bail|required|unique:scripthub_users,username',
+            'email' => 'required|email|unique:scripthub_users,email',
+            'password' => 'required',
+            'repeat_password' => 'required|same:password',
+            'discord_users_id' => 'required|exists:tmp_registration,discord_users_id',
+            'hash_code' => 'required|exists:tmp_registration,hash_code',
+        ];
+        $messages = [
+            'username.unique' => 'Este nombre de usuario ya está en uso.',
+            'email.unique' => 'Este email ya está en uso.',
+            'repeat_password.same' => 'Las contraseñas deben ser iguales.',
+            'discord_users_id.exists' => 'El ID de Discord indicado no está registrado (¿Hiciste petición de registro con Script Hub Bot?).',
+            'hash_code.exists' => 'El Token indicado no es correcto (¿Usaste el token dado por Script Hub Bot?).',
+        ];
+        return Validator::make($data, $rules, $messages);
     }
 
     /**
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return \App\User
+     * @return \App\ScriptHubUsers
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        TempRegistration::deleteById($data['discord_users_id']);
+        return ScriptHubUsers::create($data);
     }
 }

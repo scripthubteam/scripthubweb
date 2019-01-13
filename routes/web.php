@@ -12,14 +12,13 @@
 */
 
 // PagesControllers
-Route::get('/', 'PagesController@index')->name('home');
+Route::get('/', 'PagesController@index')->name('root');
 
 // DiscordUsersControllers
-Route::resource('discord', 'DiscordUsersController');
+// Route::resource('discord', 'DiscordUsersController');
 
-// ScriptHubUsersControllers
-Route::get('login', 'ScriptHubUsersController@index')->name('login');
-Route::get('register', 'ScriptHubUsersController@create')->name('users.register');
-Route::post('register', 'ScriptHubUsersController@store');
-Route::get('user/{user}', 'ScriptHubUsersController@show')->where('id', '[0-9]+')->name('users.user');
-Route::patch('user/{user}/edit', 'ScriptHubUsersController@update')->where('id', '[0-9]+')->name('users.edit');
+// Users System
+Auth::routes();
+
+// ScriptHubUsersController
+Route::get('/home', 'ScriptHubUsersController@index')->name('home');

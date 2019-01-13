@@ -1,6 +1,6 @@
-@extends('layout')
+@extends('layouts.main')
 
-@section('title', 'Script Hub Team - Registro')
+@section('title', 'Registro')
 
 @section('main_content')
     <div class="container py-4">
@@ -8,14 +8,17 @@
         <hr>
         <div class="row align-items-center justify-content-center my-4">
             {!! Form::open([
+                'route' => 'register',
                 'class' => 'col-11 col-sm-6 d-flex flex-column align-items-start border border-black rounded p-4'
             ]) !!}
+            @csrf
             <div class="form-group row">
                 {!! Form::label('username', 'Nombre de Usuario') !!}
                 {!! Form::text('username', '', [
                     'class' => 'form-control',
                     'placeholder' => 'Usuario',
-                    'required'
+                    'value' => 'old("username")',
+                    'required',
                 ]) !!}
             </div>
             <div class="form-group row">
@@ -23,7 +26,8 @@
                 {!! Form::email('email', '', [
                     'class' => 'form-control',
                     'placeholder' => 'example@scripthub.com',
-                    'required'
+                    'value' => 'old("email")',
+                    'required',
                 ]) !!}
             </div>
             <div class="form-group row">
@@ -31,7 +35,7 @@
                 {!! Form::password('password', [
                     'class' => 'form-control',
                     'placeholder' => 'La contraseña a usar',
-                    'required'
+                    'required',
                 ]) !!}
             </div>
             <div class="form-group row">
@@ -40,7 +44,7 @@
                     'class' => 'form-control',
                     'placeholder' => 'Repita la contraseña',
                     'aria-describedby' => 'passwordHelp',
-                    'required'
+                    'required',
                 ]) !!}
                 <small id="passwordHelp" class="d-none form-text text-danger">Las contraseñas no son iguales</small>
             </div>
@@ -50,7 +54,8 @@
                     'class' => 'form-control',
                     'placeholder' => 'Tu ID de Discord',
                     'aria-describedby' => 'discordIdHelp',
-                    'required'
+                    'value' => 'old("discord_users_id")',
+                    'required',
                 ]) !!}
                 <small id="discordIdHelp" class="form-text text-muted">El Bot debería indicártelo.</small>
             </div>
@@ -60,7 +65,7 @@
                     'class' => 'form-control',
                     'placeholder' => 'Código secreto',
                     'aria-describedby' => 'tokenHelp',
-                    'required'
+                    'required',
                 ]) !!}
                 <small id="tokenHelp" class="form-text text-muted">Hash secreto generado por el Bot.</small>
             </div>

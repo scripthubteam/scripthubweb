@@ -74,13 +74,7 @@
             </div>
             {!! Form::close() !!}
         </div>
-        @if ($errors->any())
-            <ul class="list-group list-group-flush">
-                @foreach ($errors->all() as $error)
-                    <li class="list-group-item list-group-item-danger">{{ $error }}</li>
-                @endforeach
-            </ul>
-        @endif
+        @include('errors.list')
     </div>
 @stop
 

@@ -49,9 +49,10 @@ class ScriptHubUsersController extends Controller
      * @param  \App\ScriptHubUsers  $scriptHubUsers
      * @return \Illuminate\Http\Response
      */
-    public function show(ScriptHubUsers $scriptHubUsers)
+    public function show(ScriptHubUsers $scriptHubUsers, $id)
     {
-        //
+        $scriptHubUsers = ScriptHubUsers::findOrFail($id);
+        dd($scriptHubUsers);
     }
 
     /**

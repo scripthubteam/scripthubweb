@@ -15,10 +15,11 @@
 Route::get('/', 'PagesController@index')->name('home');
 
 // DiscordUsersControllers
-Route::get('discord/users', 'DiscordUsersController@index');
-Route::get('discord/users/{id}', 'DiscordUsersController@show');
+Route::resource('discord', 'DiscordUsersController');
 
 // ScriptHubUsersControllers
 Route::get('login', 'ScriptHubUsersController@index')->name('login');
 Route::get('register', 'ScriptHubUsersController@create')->name('users.register');
 Route::post('register', 'ScriptHubUsersController@store');
+Route::get('user/{user}', 'ScriptHubUsersController@show')->where('id', '[0-9]+')->name('users.user');
+Route::patch('user/{user}/edit', 'ScriptHubUsersController@update')->where('id', '[0-9]+')->name('users.edit');

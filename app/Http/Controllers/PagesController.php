@@ -12,11 +12,4 @@ class PagesController extends Controller
     public function index() {
         return view('pages.index');
     }
-
-    /**
-     * Redirects to Login.
-     */
-    public function login() {
-        return view('users.login');
-    }
 }

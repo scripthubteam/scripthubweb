@@ -98,13 +98,16 @@
                                 </a>
                                 <div class="dropdown-menu">
                                     <a href="{{ route('home') }}" class="dropdown-item">
-                                        Home
+                                        <span class="fas fa-home"></span> Home
+                                    </a>
+                                    <a href="" class="dropdown-item">
+                                        <span class="fas fa-users-cog"></span> Bots
                                     </a>
                                     <div class="dropdown-divider"></div>
                                     <a href="{{ route('logout') }}" class="dropdown-item"
                                         onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();">
-                                        Salir
+                                        <span class="fas fa-sign-out-alt"></span> Salir
                                     </a>
                                     {{ Form::open([
                                         'route' => 'logout',

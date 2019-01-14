@@ -18,7 +18,9 @@ Route::get('/', 'PagesController@index')->name('root');
 // Route::resource('discord', 'DiscordUsersController');
 
 // Users System
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 // ScriptHubUsersController
-Route::get('/home', 'ScriptHubUsersController@index')->name('home');
+Route::get('/home', 'ScriptHubUsersController@index')
+      ->name('home')
+      ->middleware('verified');

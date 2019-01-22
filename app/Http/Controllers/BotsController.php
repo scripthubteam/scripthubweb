@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\ScriptHubUsers;
-use App\TempRegistration;
-use App\Http\Requests\CreateScripthubUserRequest;
-use Illuminate\Support\Facades\Hash;
+use App\Bots;
 use Illuminate\Http\Request;
 
-class ScriptHubUsersController extends Controller
+class BotsController extends Controller
 {
 
     /**
@@ -29,28 +26,48 @@ class ScriptHubUsersController extends Controller
      */
     public function index()
     {
-        return view('users.home');
+        //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\ScriptHubUsers  $scriptHubUsers
+     * @param  \App\Bots  $bots
      * @return \Illuminate\Http\Response
      */
-    public function show(ScriptHubUsers $scriptHubUsers, $id)
+    public function show(Bots $bots)
     {
-        $scriptHubUsers = ScriptHubUsers::findOrFail($id);
-        dd($scriptHubUsers);
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\ScriptHubUsers  $scriptHubUsers
+     * @param  \App\Bots  $bots
      * @return \Illuminate\Http\Response
      */
-    public function edit(ScriptHubUsers $scriptHubUsers)
+    public function edit(Bots $bots)
     {
         //
     }
@@ -59,10 +76,10 @@ class ScriptHubUsersController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\ScriptHubUsers  $scriptHubUsers
+     * @param  \App\Bots  $bots
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ScriptHubUsers $scriptHubUsers)
+    public function update(Request $request, Bots $bots)
     {
         //
     }
@@ -70,10 +87,10 @@ class ScriptHubUsersController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\ScriptHubUsers  $scriptHubUsers
+     * @param  \App\Bots  $bots
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ScriptHubUsers $scriptHubUsers)
+    public function destroy(Bots $bots)
     {
         //
     }

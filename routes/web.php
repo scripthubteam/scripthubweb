@@ -12,7 +12,7 @@
 */
 
 // PagesControllers
-Route::get('/', 'PagesController@index')->name('root');
+Route::view('/', 'pages.index')->name('root');
 
 // DiscordUsersControllers
 // Route::resource('discord', 'DiscordUsersController');
@@ -21,6 +21,7 @@ Route::get('/', 'PagesController@index')->name('root');
 Auth::routes(['verify' => true]);
 
 // ScriptHubUsersController
-Route::get('/home', 'ScriptHubUsersController@index')
-      ->name('home')
-      ->middleware('verified');
+Route::get('/home', 'ScriptHubUsersController@index')->name('home');
+
+// BotsControllers
+Route::resource('/user/bots', 'BotsController');

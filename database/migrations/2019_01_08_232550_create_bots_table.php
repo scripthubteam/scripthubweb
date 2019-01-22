@@ -18,12 +18,18 @@ class CreateBotsTable extends Migration
             $table->timestamp('requested_at')->useCurrent()->comment('Date when bot was requested.');
             $table->char('prefix', 5)->unique()->comment('Prefix for the bot');
             $table->text('info')->default('Beep boop beep?')->nullable()->comment('Info abot the bot');
-            $table->unsignedInteger('owner_scripthub_user_id')->comment('The ID for the Script Hub User owner.');
+            $table->boolean('validated')->default(false)->comment('Declares if the Bot is on out Discord Server.');
+            $table->unsignedInteger('owner_scripthub_users_id')->comment('The ID for the Script Hub User owner.');
+            $table->string('owner_discord_users_id', 50)->comment('The Discord ID for the owner');
 
             // Setting up foreing keys
-            $table->foreign('owner_scripthub_user_id')
+            $table->foreign('owner_scripthub_users_id')
                   ->references('id')
                   ->on('scripthub_users')
+                  ->onDelete('cascade');
+            $table->foreign('owner_discord_users_id')
+                  ->references('id')
+                  ->on('discord_users')
                   ->onDelete('cascade');
         });
     }

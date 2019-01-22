@@ -15,7 +15,7 @@
 Route::view('/', 'pages.index')->name('root');
 
 // DiscordUsersControllers
-// Route::resource('discord', 'DiscordUsersController');
+Route::resource('/discord', 'DiscordUsersController');
 
 // Users System
 Auth::routes(['verify' => true]);

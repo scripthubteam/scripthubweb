@@ -100,7 +100,7 @@
                                     <a href="{{ route('home') }}" class="dropdown-item">
                                         <span class="fas fa-home"></span> Home
                                     </a>
-                                    <a href="" class="dropdown-item">
+                                    <a href="{{ route('bots.index') }}" class="dropdown-item">
                                         <span class="fas fa-users-cog"></span> Bots
                                     </a>
                                     <div class="dropdown-divider"></div>

@@ -11,6 +11,9 @@ use \App\ScriptHubUsers;
 
 class RouteTest extends TestCase
 {
+
+    use RefreshDatabase;
+
     /**
      * Checks if every static (not logged) route is working.<br>
      * All routes must return 200.
@@ -36,6 +39,9 @@ class RouteTest extends TestCase
      * @return void
      */
     public function testRedirectsToLogin() {
+        // Creates dummies
+        factory(Bots::class, 5)->create();
+
         $this->assertGuest();
         $this->get(route('discord.create'))
              ->assertRedirect(route('login'));

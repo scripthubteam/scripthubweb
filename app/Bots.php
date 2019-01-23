@@ -43,7 +43,7 @@ class Bots extends Model
      * @return App\ScriptHubUsers scripthub_user
      */
     public function scripthub_user() {
-        return $this->belongsTo('App\ScriptHubUsers', 'owner_scripthub_users_id', 'id');
+        return $this->belongsTo('App\ScriptHubUsers', 'scripthub_users_id', 'id');
     }
 
     /**
@@ -52,6 +52,6 @@ class Bots extends Model
      * @return App\DiscordUsers discord_user
      */
     public function discord_user() {
-        return $this->belongsTo('App\DiscordUsers', 'owner_discord_users_id', 'id');
+        return $this->belongsTo('App\DiscordUsers', 'discord_users_id', 'id');
     }
 }

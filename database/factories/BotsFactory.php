@@ -11,7 +11,8 @@ $factory->define(App\Bots::class, function (Faker $faker) {
         'prefix' => str_random(4),
         'info' => $faker->boolean(50) ? $faker->sentences(3, true) : null,
         'validated' => $faker->boolean(50),
-        'owner_scripthub_users_id' => $owner->id,
-        'owner_discord_users_id' => $owner->discord_user->id,
+        'discord_users_id' => factory(App\DiscordUsers::class)->create()->id,
+        'scripthub_users_id' => $owner->id,
+        'scripthub_users_discord_users_id' => $owner->discord_user->id,
     ];
 });

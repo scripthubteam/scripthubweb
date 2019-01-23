@@ -21,9 +21,10 @@ class CreateScriptHubUsersTable extends Migration
             $table->boolean('is_admin')->default(false)->comment('Declares if user is admin.');
             $table->string('password')->comment('The password used for login');
             $table->text('description')->nullable()->comment('Description of the user.');
+            $table->text('avatar_url')->nullable()->comment('The Avatar URL if needed.');
             $table->timestamps();
             $table->rememberToken()->comment('Token used for password recover.');
-            $table->string('discord_users_id', 50)->comment('The Discord User associated with this Script Hub User.');
+            $table->string('discord_users_id', 50)->unique()->comment('The Discord User associated with this Script Hub User.');
 
             // Setting up Foreing Key
             $table->foreign('discord_users_id')

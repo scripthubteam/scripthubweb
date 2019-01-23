@@ -83,8 +83,8 @@ class UserRegistrationTest extends TestCase
             'email_verified_at' => \Carbon\Carbon::now(),
         ]);
         $bots = factory(Bots::class, 3)->create([
-            'owner_scripthub_users_id' => $user->id,
-            'owner_discord_users_id' => $user->discord_user->id,
+            'scripthub_users_id' => $user->id,
+            'scripthub_users_discord_users_id' => $user->discord_user->id,
             ]);
 
         foreach ($bots as $bot) {

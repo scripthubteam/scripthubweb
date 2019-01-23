@@ -29,7 +29,8 @@ class ScriptHubUsersController extends Controller
      */
     public function index()
     {
-        return view('users.home');
+        $user = \Auth::user();
+        return view('users.home', compact('user'));
     }
 
     /**

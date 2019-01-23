@@ -11,6 +11,8 @@ use \App\Bots;
 use \App\ScriptHubUsers;
 use \App\DiscordUsers;
 
+use \Carbon\Carbon;
+
 class UserRegistrationTest extends TestCase
 {
 
@@ -80,7 +82,7 @@ class UserRegistrationTest extends TestCase
     public function testAccessToBots() {
         // Creates user and its bots.
         $user = factory(ScriptHubUsers::class)->create([
-            'email_verified_at' => \Carbon\Carbon::now(),
+            'email_verified_at' => Carbon::now(),
         ]);
         $bots = factory(Bots::class, 3)->create([
             'scripthub_users_id' => $user->id,
@@ -92,5 +94,22 @@ class UserRegistrationTest extends TestCase
                  ->get(route('bots.index'))
                  ->assertSee($bot->name);
         }
+    }
+
+    /**
+     * Checks if User is logged and can access to his/her information.<br>
+     *
+     * @return void
+     */
+    public function testLogin() {
+        $user = factory(ScriptHubUsers::class)->create([
+            'username' => 'LeCuay',
+            'password' => 'password',
+            'email_verified_at' => Carbon::now(),
+        ]);
+
+        $this->actingAs($user)
+             ->get('home')
+             ->assertSee($user->discord_user->id);
     }
 }

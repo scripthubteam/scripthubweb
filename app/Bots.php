@@ -21,8 +21,9 @@ class Bots extends Model
         'prefix',
         'info',
         'validated',
-        'owner_scripthub_users_id',
-        'owner_discord_users_id',
+        'discord_users_id',
+        'scripthub_users_id',
+        'scripthub_users_discord_users_id',
     ];
 
     /**

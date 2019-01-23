@@ -23,7 +23,7 @@
                 </div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">
-                        ID del Bot: {{ $bot->id }}
+                        ID del Bot: {{ $bot->discord_user->id }}
                     </li>
                     <li class="list-group-item">
                         Prefijo de servidor: <code>{{ $bot->prefix }}</code>

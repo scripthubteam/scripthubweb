@@ -57,7 +57,7 @@ class ScriptHubUsers extends Authenticatable implements MustVerifyEmail
      * @return App\Bots bots
      */
     public function bots() {
-        return $this->hasMany('App\Bots', 'owner_scripthub_users_id', 'id');
+        return $this->hasMany('App\Bots', 'scripthub_users_id', 'id');
     }
 
     /**

@@ -22,6 +22,9 @@ Auth::routes(['verify' => true]);
 
 // ScriptHubUsersController
 Route::get('/home', 'ScriptHubUsersController@index')->name('home');
+Route::resource('/users', 'ScriptHubUsersController')->only([
+    'show'
+]);
 
 // BotsControllers
 Route::resource('/user/bots', 'BotsController');

@@ -26,7 +26,9 @@ class BotsController extends Controller
      */
     public function index()
     {
-        //
+        $user = \Auth::user();
+        $bots = Bots::where('owner_scripthub_users_id', $user->id)->get();
+        return view('bots.index', compact('bots', 'user'));
     }
 
     /**

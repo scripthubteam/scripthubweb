@@ -4,7 +4,7 @@
 
 @section('main_content')
     <div class="container py-4">
-        <h2 class="font-weight-light text-center">{{ _("¡Únete a Script Hub Team!") }}</h2>
+        <h2 class="font-weight-light text-center">{{ __("¡Únete a Script Hub Team!") }}</h2>
         <hr>
         <div class="row align-items-center justify-content-center my-4">
             {!! Form::open([
@@ -46,7 +46,7 @@
                     'aria-describedby' => 'passwordHelp',
                     'required',
                 ]) !!}
-                <small id="passwordHelp" class="d-none form-text text-danger">{{ _("Las contraseñas no son iguales") }}</small>
+                <small id="passwordHelp" class="d-none form-text text-danger">{{ __("Las contraseñas no son iguales") }}</small>
             </div>
             <div class="form-group row">
                 {!! Form::label('discord_users_id', 'Discord ID') !!}
@@ -57,7 +57,7 @@
                     'value' => 'old("discord_users_id")',
                     'required',
                 ]) !!}
-                <small id="discordIdHelp" class="form-text text-muted">{{ _("El Bot debería indicártelo.") }}</small>
+                <small id="discordIdHelp" class="form-text text-muted">{{ __("El Bot debería indicártelo.") }}</small>
             </div>
             <div class="form-group row">
                 {!! Form::label('hash_code', 'Token') !!}
@@ -67,7 +67,7 @@
                     'aria-describedby' => 'tokenHelp',
                     'required',
                 ]) !!}
-                <small id="tokenHelp" class="form-text text-muted">{{ _("Hash secreto generado por el Bot.") }}</small>
+                <small id="tokenHelp" class="form-text text-muted">{{ __("Hash secreto generado por el Bot.") }}</small>
             </div>
             <div class="form-group align-self-center">
                 {!! Form::submit('Enviar', [

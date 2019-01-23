@@ -4,7 +4,7 @@
 @section('main_content')
     <div class="container py-4">
         <div class="row align-items-center justify-content-center">
-            <h2 class="col-10 text-center">¡Bienvenido a Script Hub!</h2>
+            <h2 class="col-10 text-center">{{ __("¡Bienvenido a Script Hub!") }}</h2>
         </div>
         <div class="row align-items-center justify-content-center">
             {!! Form::open([

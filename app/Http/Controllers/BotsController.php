@@ -56,9 +56,9 @@ class BotsController extends Controller
      * @param  \App\Bots  $bots
      * @return \Illuminate\Http\Response
      */
-    public function show(Bots $bots)
+    public function show(Bots $bot)
     {
-        //
+        return view('bots.show', compact('bot'));
     }
 
     /**

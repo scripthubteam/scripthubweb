@@ -68,9 +68,10 @@ class RouteTest extends TestCase
     public function testGetsLoggedRouteIsWorking()
     {
         // Creating user
-        $user = factory(ScriptHubUsers::class)->create([
-            'email_verified_at' => \Carbon\Carbon::now(),
-        ]);
+        $bot = factory(Bots::class)->create();
+        $user = $bot->scripthub_user;
+        $user->email_verified_at = \Carbon\Carbon::now();
+        $user->save();
 
         // Logging and checking autheticated
         $this->actingAs($user);
@@ -158,7 +159,14 @@ class RouteTest extends TestCase
      * @return void
      */
     public function testFailingIfIDNotExists() {
-        $this->assertTrue(true);
-        // $this->get(route('bots.show', str_random(19)))->assertNotFound();
+        // Asserts 302 since it redirects.
+        $this->get(route('bots.show', str_random(19)))
+             ->assertStatus(302);
+        $this->get(route('bots.edit', str_random(19)))
+             ->assertStatus(302);
+        $this->get(route('discord.show', str_random(19)))
+             ->assertStatus(302);
+        $this->get(route('discord.edit', str_random(19)))
+             ->assertStatus(302);
     }
 }

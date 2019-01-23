@@ -16,6 +16,7 @@ class Bots extends Model
      */
     protected $fillable = [
         'id',
+        'name',
         'requested_at',
         'prefix',
         'info',

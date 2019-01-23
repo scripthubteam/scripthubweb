@@ -15,6 +15,7 @@ class CreateBotsTable extends Migration
     {
         Schema::create('bots', function (Blueprint $table) {
             $table->string('id')->comment('Discord ID identifier for bot.');
+            $table->string('name', 45)->comment('The nickname of the bot.');
             $table->timestamp('requested_at')->useCurrent()->comment('Date when bot was requested.');
             $table->char('prefix', 5)->unique()->comment('Prefix for the bot');
             $table->text('info')->default('Beep boop beep?')->nullable()->comment('Info abot the bot');

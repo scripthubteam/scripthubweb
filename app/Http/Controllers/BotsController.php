@@ -15,8 +15,8 @@ class BotsController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
-        $this->middleware('verified');
+        $this->middleware('auth')->except('show');
+        $this->middleware('verified')->except('show');
     }
 
     /**
@@ -38,7 +38,8 @@ class BotsController extends Controller
      */
     public function create()
     {
-        //
+        $user = \Auth::user();
+        return view('bots.create', compact('user'));
     }
 
     /**
@@ -55,33 +56,34 @@ class BotsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Bots  $bots
+     * @param  \App\Bots  $bot
      * @return \Illuminate\Http\Response
      */
-    public function show(Bots $bot)
+    public function show(Bots $bot, $bot_id)
     {
+        $bot = Bots::findOrFail($bot_id);
         return view('bots.show', compact('bot'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Bots  $bots
+     * @param  \App\Bots  $bot
      * @return \Illuminate\Http\Response
      */
-    public function edit(Bots $bots)
+    public function edit(Bots $bot, $bot_id)
     {
-        //
+        $bot = Bots::findOrFail($bot_id);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Bots  $bots
+     * @param  \App\Bots  $bot
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Bots $bots)
+    public function update(Request $request, Bots $bot)
     {
         //
     }
@@ -89,10 +91,10 @@ class BotsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Bots  $bots
+     * @param  \App\Bots  $bot
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Bots $bots)
+    public function destroy(Bots $bot)
     {
         //
     }

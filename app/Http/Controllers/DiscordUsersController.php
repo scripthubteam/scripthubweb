@@ -58,9 +58,9 @@ class DiscordUsersController extends Controller
      * @param  \App\DiscordUsers  $discordUser
      * @return \Illuminate\Http\Response
      */
-    public function show(DiscordUsers $discordUser, $id)
+    public function show(DiscordUsers $discordUser, $discord)
     {
-        $discordUser = DiscordUsers::findOrFail($id);
+        $discordUser = DiscordUsers::findOrFail($discord);
         return view('discord.show', compact('discordUser'));
     }
 
@@ -70,9 +70,9 @@ class DiscordUsersController extends Controller
      * @param  \App\DiscordUsers  $discordUser
      * @return \Illuminate\Http\Response
      */
-    public function edit(DiscordUsers $discordUser)
+    public function edit(DiscordUsers $discordUser, $discord)
     {
-        //
+        $discordUser = DiscordUsers::findOrFail($discord);
     }
 
     /**

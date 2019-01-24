@@ -5,9 +5,12 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+
 use \App\DiscordUsers;
 use \App\Bots;
 use \App\ScriptHubUsers;
+
+use \Carbon\Carbon;
 
 class RouteTest extends TestCase
 {
@@ -24,13 +27,19 @@ class RouteTest extends TestCase
     {
         $this->assertGuest();
         $this->get(route('root'))
-             ->assertStatus(200);
+             ->assertOk();
         $this->get(route('login'))
-             ->assertStatus(200);
+             ->assertOk();
         $this->get(route('register'))
-             ->assertStatus(200);
+             ->assertOk();
         $this->get(route('password.request'))
-             ->assertStatus(200);
+             ->assertOk();
+        // Creates random Bot
+        $bot = factory(Bots::class)->create();
+        $this->get(route('bots.show', $bot))
+             ->assertOk();
+        $this->get(route('bots.show', $bot->id))
+             ->assertOk();
     }
 
     /**
@@ -45,9 +54,9 @@ class RouteTest extends TestCase
         $this->assertGuest();
         $this->get(route('discord.create'))
              ->assertRedirect(route('login'));
-        $this->get(route('discord.show', DiscordUsers::first()->id))
+        $this->get(route('discord.show', DiscordUsers::first()))
              ->assertRedirect(route('login'));
-        $this->get(route('discord.edit', DiscordUsers::first()->id))
+        $this->get(route('discord.edit', DiscordUsers::first()))
              ->assertRedirect(route('login'));
         $this->get(route('verification.resend'))
              ->assertRedirect(route('login'));
@@ -59,9 +68,7 @@ class RouteTest extends TestCase
              ->assertRedirect(route('login'));
         $this->get(route('bots.create'))
              ->assertRedirect(route('login'));
-        $this->get(route('bots.show', Bots::first()->id))
-             ->assertRedirect(route('login'));
-        $this->get(route('bots.edit', Bots::first()->id))
+        $this->get(route('bots.edit', Bots::first()))
              ->assertRedirect(route('login'));
     }
 
@@ -76,7 +83,7 @@ class RouteTest extends TestCase
         // Creating user
         $bot = factory(Bots::class)->create();
         $user = $bot->scripthub_user;
-        $user->email_verified_at = \Carbon\Carbon::now();
+        $user->email_verified_at = Carbon::now();
         $user->save();
 
         // Logging and checking autheticated
@@ -86,15 +93,15 @@ class RouteTest extends TestCase
 
         // Checking
         $this->get(route('home'))
-             ->assertStatus(200);
+             ->assertOk();
         $this->get(route('bots.index'))
-             ->assertStatus(200);
+             ->assertOk();
         $this->get(route('bots.create'))
-             ->assertStatus(200);
-        $this->get(route('bots.show', Bots::first()->id))
-             ->assertStatus(200);
-        $this->get(route('bots.edit', Bots::first()->id))
-             ->assertStatus(200);
+             ->assertOk();
+        $this->get(route('bots.show', Bots::first()))
+             ->assertOk();
+        $this->get(route('bots.edit', Bots::first()))
+             ->assertOk();
     }
 
     /**
@@ -106,7 +113,7 @@ class RouteTest extends TestCase
     public function testAccessDiscordForbidden() {
         // Creating user
         $user = factory(ScriptHubUsers::class)->create([
-            'email_verified_at' => \Carbon\Carbon::now(),
+            'email_verified_at' => Carbon::now(),
         ]);
 
         // Logging and checking autheticated
@@ -123,13 +130,13 @@ class RouteTest extends TestCase
              ->assertForbidden();
         $this->get(route('discord.create'))
              ->assertSee('Acceso denegado.');
-        $this->get(route('discord.show', DiscordUsers::first()->id))
+        $this->get(route('discord.show', DiscordUsers::first()))
              ->assertForbidden();
-        $this->get(route('discord.show', DiscordUsers::first()->id))
+        $this->get(route('discord.show', DiscordUsers::first()))
              ->assertSee('Acceso denegado.');
-        $this->get(route('discord.edit', DiscordUsers::first()->id))
+        $this->get(route('discord.edit', DiscordUsers::first()))
              ->assertForbidden();
-        $this->get(route('discord.edit', DiscordUsers::first()->id))
+        $this->get(route('discord.edit', DiscordUsers::first()))
              ->assertSee('Acceso denegado.');
     }
 
@@ -139,7 +146,7 @@ class RouteTest extends TestCase
     public function testAccessDiscordGranted() {
         // Creating user
         $user = factory(ScriptHubUsers::class)->create([
-            'email_verified_at' => \Carbon\Carbon::now(),
+            'email_verified_at' => Carbon::now(),
             'is_admin' => true,
         ]);
 
@@ -153,9 +160,9 @@ class RouteTest extends TestCase
              ->assertOk();
         $this->get(route('discord.create'))
              ->assertOk();
-        $this->get(route('discord.show', DiscordUsers::first()->id))
+        $this->get(route('discord.show', DiscordUsers::first()))
              ->assertOk();
-        $this->get(route('discord.edit', DiscordUsers::first()->id))
+        $this->get(route('discord.edit', DiscordUsers::first()))
              ->assertOk();
     }
 
@@ -165,14 +172,32 @@ class RouteTest extends TestCase
      * @return void
      */
     public function testFailingIfIDNotExists() {
-        // Asserts 302 since it redirects.
-        $this->get(route('bots.show', str_random(19)))
-             ->assertStatus(302);
-        $this->get(route('bots.edit', str_random(19)))
-             ->assertStatus(302);
-        $this->get(route('discord.show', str_random(19)))
-             ->assertStatus(302);
-        $this->get(route('discord.edit', str_random(19)))
-             ->assertStatus(302);
+        // Creating users with permissions
+        $user = factory(ScriptHubUsers::class)->create([
+            'email_verified_at' => Carbon::now(),
+            'is_admin' => true,
+        ]);
+
+        // Asserts 404 because 'method not allowed' (we need numbers).
+        $this->actingAs($user)
+             ->get(route('bots.show', str_random(19)))
+             ->assertNotFound();
+        $this->actingAs($user)
+             ->get(route('bots.edit', str_random(19)))
+             ->assertNotFound();
+
+        $this->actingAs($user)
+             ->get(route('bots.show', random_int(1000, 5000)))
+             ->assertNotFound();
+        $this->actingAs($user)
+             ->get(route('bots.show', random_int(1000, 5000)))
+             ->assertNotFound();
+
+        $this->actingAs($user)
+             ->get(route('discord.show', str_random(19)))
+             ->assertNotFound();
+        $this->actingAs($user)
+             ->get(route('discord.edit', str_random(19)))
+             ->assertNotFound();
     }
 }

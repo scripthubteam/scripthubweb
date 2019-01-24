@@ -17,7 +17,6 @@ class AppServiceProvider extends ServiceProvider
     {
         // Force SSL in production
         if (env('APP_USE_HTTPS')) {
-            Log::info('forcing URLs to use https');
             \URL::forceScheme('https');
         }
     }

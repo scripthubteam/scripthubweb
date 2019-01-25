@@ -5,6 +5,8 @@
     <div class="container-fluid py-4">
         <h2 class="text-center">Lista de Usuarios de Discord Registrados</h2>
         <hr/>
+        <h4 class="text-right">Páginas</h3>
+        {{ $discord_users->links('layouts.pagination') }}
         <table class="table table-dark table-striped">
             <thead>
                 <tr>
@@ -27,5 +29,6 @@
                 @endforeach
             </tbody>
         </table>
+        {{ $discord_users->links('layouts.pagination') }}
     </div>
 @stop

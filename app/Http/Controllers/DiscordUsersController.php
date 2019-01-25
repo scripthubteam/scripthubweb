@@ -27,7 +27,7 @@ class DiscordUsersController extends Controller
      */
     public function index()
     {
-        $discord_users = DiscordUsers::all();
+        $discord_users = DiscordUsers::orderBy('created_at', 'asc')->paginate(15);
         return view('discord.index', compact('discord_users'));
     }
 

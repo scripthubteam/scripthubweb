@@ -11,7 +11,7 @@
                 'route' => 'register',
                 'class' => 'col-11 col-sm-6 d-flex flex-column align-items-start border border-black rounded p-4'
             ]) !!}
-            @csrf
+            {!! Form::token() !!}
             <div class="form-group row">
                 {!! Form::label('username', 'Nombre de Usuario') !!}
                 {!! Form::text('username', '', [

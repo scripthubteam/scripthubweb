@@ -81,10 +81,10 @@ class ScriptHubUsersController extends Controller
         $input = [];
 
         // Checking password and description are in input
-        if($request->input('username') != $scriptHubUser->username) {
+        if($request->has('username')) {
             $input['username'] = $request->input('username');
         }
-        if($request->input('email') != $scriptHubUser->email) {
+        if($request->has('email')) {
             $input['email'] = $request->input('email');
         }
         if($request->has('password')) {

@@ -61,7 +61,7 @@
     </div>
     {!! Form::close() !!}
     <div class="row justify-content-end">
-        <a href="{{ url()->previous() }}" class="col-10 link text-right mt-2">Volver</a>
+        <a href="{{ route('home') }}" class="col-10 link text-right mt-2">Volver</a>
     </div>
     @include('errors.list')
 </div>

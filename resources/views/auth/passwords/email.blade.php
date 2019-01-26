@@ -42,7 +42,7 @@
                     </form>
                 </div>
             </div>
-            <a href="{{ url()->previous() }}" class="col-10 link text-center mt-2">Volver</a>
+            <a href="{{ route('login') }}" class="col-10 link text-center mt-2">Volver</a>
         </div>
     </div>
 </div>

@@ -39,7 +39,7 @@ class ScriptHubUsersController extends Controller
      * @param  \App\ScriptHubUsers  $scriptHubUsers
      * @return \Illuminate\Http\Response
      */
-    public function show(ScriptHubUsers $scriptHubUser)
+    public function show(ScriptHubUsers $scriptHubUser, $user)
     {
         return view('users.show', compact('scriptHubUser'));
     }
@@ -50,9 +50,13 @@ class ScriptHubUsersController extends Controller
      * @param  \App\ScriptHubUsers  $scriptHubUsers
      * @return \Illuminate\Http\Response
      */
-    public function edit(ScriptHubUsers $scriptHubUsers)
+    public function edit(ScriptHubUsers $scriptHubUser, $user)
     {
-        //
+        $requestUser = \Auth::user();
+        $scriptHubUser = ScriptHubUsers::findOrFail($user);
+        if($requestUser->id != $scriptHubUser->id) {
+            abort(403, 'Acceso denegado. No puedes editar otro usuarios.');
+        }
     }
 
     /**
@@ -73,7 +77,7 @@ class ScriptHubUsersController extends Controller
      * @param  \App\ScriptHubUsers  $scriptHubUsers
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ScriptHubUsers $scriptHubUsers)
+    public function destroy(ScriptHubUsers $scriptHubUsers, $user)
     {
         //
     }

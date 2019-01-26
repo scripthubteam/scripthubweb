@@ -108,8 +108,33 @@ class UserRegistrationTest extends TestCase
             'email_verified_at' => Carbon::now(),
         ]);
 
+        // Sees name
         $this->actingAs($user)
              ->get('home')
-             ->assertSee($user->discord_user->id);
+             ->assertSee($user->username);
+
+        // Sees Discord ID
+        $this->actingAs($user)
+             ->get('home')
+             ->assertSee($user->discord_users_id);
+
+        // Sees description
+        $description = \Faker\Factory::create()->sentence;
+        $user->description = $description;
+        $user->save();
+        $this->actingAs($user)
+             ->get('home')
+             ->assertSee($user->description);
+
+        // Access edit
+        $random_user = factory(ScriptHubUsers::class)->create([
+            'email_verified_at' => Carbon::now()
+        ]);
+        $this->actingAs($random_user)
+             ->get(route('users.edit', $user))
+             ->assertForbidden();
+        $this->actingAs($user)
+             ->get(route('users.edit', $user))
+             ->assertOk();
     }
 }

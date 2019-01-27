@@ -11,13 +11,12 @@
                 'route' => 'login',
                 'class' => 'd-flex flex-column align-items-start border border-black rounded p-4'
             ]) !!}
-            @csrf
+            {!! Form::token() !!}
             <div class="form-group">
                 {!! Form::label('username', 'Usuario') !!}
-                {!! Form::text('username', '', [
+                {!! Form::text('username', old('username'), [
                     'class' => 'form-control',
                     'placeholder' => 'Nombre de usuario',
-                    'value' => 'old("username")',
                     'required',
                     'autofocus'
                 ]) !!}

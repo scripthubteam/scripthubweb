@@ -6,6 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class ScriptHubUsersRequest extends FormRequest
 {
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -13,6 +14,21 @@ class ScriptHubUsersRequest extends FormRequest
      */
     public function authorize()
     {
+        // Getting ID based on route
+        $user = \Illuminate\Support\Facades\Route::current()->user;
+        // Creating user based on that ID
+        $scriptHubUser = \App\ScriptHubUsers::findOrFail($user);
+
+        // Checking if username wasn't changed
+        if ($this->has('username') && $this->input('username') == $scriptHubUser->username) {
+            $this->request->remove('username');
+        }
+
+        // Checking if email wasn't changed
+        if ($this->has('email') && $this->input('email') == $scriptHubUser->email) {
+            $this->request->remove('email');
+        }
+
         return true;
     }
 
@@ -24,10 +40,10 @@ class ScriptHubUsersRequest extends FormRequest
     public function rules()
     {
         return [
-            'username' => 'bail|required|unique:scripthub_users,username|max:50',
-            'email' => 'email|required|unique:scripthub_users,email|max:100',
+            'username' => 'unique:scripthub_users,username|max:45',
+            'email' => 'email|unique:scripthub_users,email|max:100',
             'password' => 'max:255',
-            'repeat_password' => 'same:password|max:255',
+            'repeat_password' => 'required_with:password|same:password|max:255',
             'avatar' => 'image',
         ];
     }

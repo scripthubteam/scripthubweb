@@ -15,22 +15,24 @@
     {!! Form::token() !!}
     <div class="col-5 form-group">
         {!! Form::label('username', 'Nombre de Usuario') !!}
-        {!! Form::text('username', '', [
+        {!! Form::text('username', old('username'), [
             'class' => 'form-control',
-            'placeholder' => 'old(\'username\')',
+            'placeholder' => 'Nombre de Usuario',
+            'required',
         ]) !!}
     </div>
     <div class="col-5 form-group">
         {!! Form::label('email', 'Email') !!}
-        {!! Form::email('email', '', [
-            'class' => 'form-control required',
-            'placeholder' => 'old(\'email\')'
+        {!! Form::email('email', old('email'), [
+            'class' => 'form-control',
+            'placeholder' => 'Email',
+            'required',
         ]) !!}
     </div>
     <div class="col-5 form-group">
         {!! Form::label('password', 'Contraseña') !!}
         {!! Form::password('password', [
-            'class' => 'form-control required',
+            'class' => 'form-control',
         ]) !!}
     </div>
     <div class="col-5 form-group">

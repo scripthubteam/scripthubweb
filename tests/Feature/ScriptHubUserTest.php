@@ -43,7 +43,7 @@ class UserRegistrationTest extends TestCase
         $faker = Factory::create();
         $password = $faker->password;
         $input = [
-            'username' => $faker->username,
+            'username' => $faker->userName,
             'email' => $faker->email,
             'password' => $password,
             'repeat_password' => $password,
@@ -167,20 +167,24 @@ class UserRegistrationTest extends TestCase
             'email_verified_at' => Carbon::now()
         ]);
 
-        // Redirecting because empty
+        // Redirecting because forbidden
         $this->actingAs($random_user)
              ->put(route('users.update', $user), [])
-             ->assertStatus(302);
+             ->assertForbidden();
+
+        // Redirecting because empty
         $this->actingAs($user)
              ->put(route('users.update', $user), [])
              ->assertStatus(302);
 
         // Random input
         $faker = Factory::create();
+        $password = $faker->password;
         $input = [
-            'username' => $faker->username,
+            'username' => $faker->userName,
             'email' => $faker->safeEmail,
-            'password' => $faker->password,
+            'password' => $password,
+            'repeat_password' => $password,
             'description' => $faker->paragraph,
         ];
 
@@ -188,37 +192,73 @@ class UserRegistrationTest extends TestCase
         $this->actingAs($random_user)
              ->put(route('users.update', $user), $input)
              ->assertForbidden();
+        $before = $user->username;
         $this->actingAs($user)
              ->put(route('users.update', $user), $input)
              ->assertRedirect(route('home'));
 
+        // Refreshing model
+        $user->refresh();
+
         // Checking if everything has changed.
         $this->assertTrue($user->username == $input['username'],
-                          'The username wasn\'t updated -> ' . $user->username . ' != \'' . $input['username'] .'\'');
+                          'The username wasn\'t updated -> ' . $user->username . ' != '  . $input['username']);
         $this->assertTrue($user->email == $input['email'],
-                          'The email wasn\'t updated -> ' . $user->email . ' != \'' . $input['email'] .'\'');
+                          'The email wasn\'t updated -> ' . $user->email . ' != ' . $input['email']);
         $this->assertTrue(\Hash::check($input['password'], $user->password), 'The password wasn\'t updated');
         $this->assertTrue($user->description == $input['description'],
-                          'The description wasn\'t updated -> ' . $user->description . ' != \'' . $input['description'] .'\'');
+                          'The description wasn\'t updated -> ' . $user->description . ' != ' . $input['description']);
 
-        // Editing (without password or description)
-        $password = $input['password'];
-        $description = $input['description'];
+        // Editting (with same username)
         $input = [
-            'username' => $faker->username,
-            'email' => $faker->safeEmail,
+            'username' => $user->username,
+        ];
+        $this->actingAs($user)
+             ->put(route('users.update', $user), $input)
+             ->assertRedirect(route('users.edit', $user));
+
+        // Editting (with same username and email)
+        $input = [
+            'username' => $user->username,
+            'email' => $user->email,
+        ];
+        $this->actingAs($user)
+             ->put(route('users.update', $user), $input)
+             ->assertRedirect(route('users.edit', $user));
+
+        // Editting (changing password)
+        $password = $faker->password();
+        $input = [
+            'username' => $user->username,
+            'email' => $user->email,
+            'password' => $password,
+            'repeat_password' => $password,
         ];
         $this->actingAs($user)
              ->put(route('users.update', $user), $input)
              ->assertRedirect(route('home'));
 
-        // Checking if everything has changed but password.
-        $this->assertTrue($user->username == $input['username'],
-                          'The username wasn\'t updated -> ' . $user->username . ' != \'' . $input['username'] .'\'');
-        $this->assertTrue($user->email == $input['email'],
-                          'The email wasn\'t updated -> ' . $user->email . ' != \'' . $input['email'] .'\'');
-        $this->assertTrue(\Hash::check($password, $user->password), 'The password wasn\'t updated');
-        $this->assertTrue($user->description == $description,
-                          'The description wasn\'t updated -> ' . $user->description . ' != \'' . $description .'\'');
+        // Refreshing model
+        $user->refresh();
+
+        // Checking password has changed
+        $this->assertTrue(\Hash::check($input['password'], $user->password), 'The password wasn\'t updated');
+
+        // Editting (changing description)
+        $input = [
+            'username' => $user->username,
+            'email' => $user->email,
+            'description' => $faker->paragraph,
+        ];
+        $this->actingAs($user)
+             ->put(route('users.update', $user), $input)
+             ->assertRedirect(route('home'));
+
+        // Refreshing model
+        $user->refresh();
+
+        // Checking if description has changed
+        $this->assertTrue($user->description == $input['description'],
+                          'The description wasn\'t updated -> ' . $user->description . ' != ' . $input['description']);
     }
 }

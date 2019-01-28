@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\ScriptHubUsers;
-use App\TempRegistration;
 use App\Http\Requests\ScriptHubUsersRequest;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Http\Request;
+use Auth;
 
 class ScriptHubUsersController extends Controller
 {
@@ -29,8 +27,8 @@ class ScriptHubUsersController extends Controller
      */
     public function index()
     {
-        $user = \Auth::user();
-        return view('users.home', compact('user'));
+        $scriptHubUser = Auth::user();
+        return view('users.home', compact('scriptHubUser'));
     }
 
     /**
@@ -41,6 +39,7 @@ class ScriptHubUsersController extends Controller
      */
     public function show(ScriptHubUsers $scriptHubUser, $user)
     {
+        $scriptHubUser = ScriptHubUsers::findOrFail($user);
         return view('users.show', compact('scriptHubUser'));
     }
 
@@ -52,8 +51,12 @@ class ScriptHubUsersController extends Controller
      */
     public function edit(ScriptHubUsers $scriptHubUser, $user)
     {
+        // Gets both current user and user to edit
+        $currentUser = ScriptHubUsers::findOrFail(Auth::user()->id);
         $scriptHubUser = ScriptHubUsers::findOrFail($user);
-        if(\Auth::user()->id != $scriptHubUser->id) {
+
+        // Checks if current user is user to edit.
+        if($currentUser != $scriptHubUser) {
             abort(403, 'Acceso denegado. No puedes editar otro usuarios.');
         }
 
@@ -63,39 +66,33 @@ class ScriptHubUsersController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\ScriptHubUsersRequest  $request
      * @param  \App\ScriptHubUsers  $scriptHubUsers
      * @return \Illuminate\Http\Response
      */
     public function update(ScriptHubUsersRequest $request, ScriptHubUsers $scriptHubUser, $user)
     {
-        // Checks if ID belongs to user
+        // Gets both current user and user to edit
+        $currentUser = ScriptHubUsers::findOrFail(Auth::user()->id);
         $scriptHubUser = ScriptHubUsers::findOrFail($user);
+
         // Checks if logged user is User to edit
-        if(\Auth::user()->id != $scriptHubUser->id) {
+        if($currentUser != $scriptHubUser) {
             abort(403, 'Acceso denegado. No puedes editar a otros usuarios.');
         }
 
-        // Overwrites User to Edit
-        $scriptHubUser = \Auth::user();
-        $input = [];
+        $info = $request->all();
 
-        // Checking password and description are in input
-        if($request->has('username')) {
-            $input['username'] = $request->input('username');
-        }
-        if($request->has('email')) {
-            $input['email'] = $request->input('email');
-        }
-        if($request->has('password')) {
-            $input['password'] = $request->input('password');
-        }
-        if($request->has('description')) {
-            $input['description'] = $request->input('description');
+        // Checks if request is empty
+        if (empty($info)) {
+            return redirect()->route('users.edit', $user)
+                             ->withErrors([
+                                 'empty' => '¡El formulario está vacío!'
+                             ]);
         }
 
         // Updating
-        $scriptHubUser->fill($input);
+        $scriptHubUser->fill($info);
         $scriptHubUser->save();
 
         // Redirecting
@@ -111,6 +108,13 @@ class ScriptHubUsersController extends Controller
      */
     public function destroy(ScriptHubUsers $scriptHubUsers, $user)
     {
-        //
+        // Gets both current user and user to edit
+        $currentUser = ScriptHubUsers::findOrFail(Auth::user()->id);
+        $scriptHubUser = ScriptHubUsers::findOrFail($user);
+
+        // Checks if current user is user to edit.
+        if($currentUser != $scriptHubUser) {
+            abort(403, 'Acceso denegado. No puedes borrar a otros usuarios.');
+        }
     }
 }

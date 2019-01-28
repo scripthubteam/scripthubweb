@@ -37,9 +37,11 @@ class ScriptHubUsersRequest extends FormRequest
         if ($this->has('avatar')) {
             $file = $this->file('avatar');
             $path = Storage::disk('public')->putFileAs(
-                'storage/avatars', $file, $scriptHubUser->id . '_avatar.' . $file->extension()
+                'avatars', $file, $scriptHubUser->id . '_avatar.' . $file->extension()
             );
-            $this->request->add(['avatar_url' => asset($path)]);
+            $this->request->add([
+                'avatar_url' => env('APP_URL') . '/storage/' . str_replace(env('APP_URL'), '', asset($path)),
+            ]);
         }
 
         return true;

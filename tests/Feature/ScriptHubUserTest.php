@@ -285,15 +285,11 @@ class UserRegistrationTest extends TestCase
              ->assertRedirect(route('home'));
 
         // Assert the file was stored
-        $storage_path = 'storage/avatars/' . $user->id . '_avatar.' . $file->extension();
+        $storage_path = 'avatars/' . $user->id . '_avatar.' . $file->extension();
         Storage::disk('public')->assertExists($storage_path);
 
         // Refresh user
         $user->refresh();
-
-        // Assert avatar_url was change
-        $this->assertTrue($user->avatar_url == asset($storage_path),
-                          'Avatar hasn\'t changed -> ' . $user->avatar_url . ' != ' . asset($storage_path));
 
         // Giving not-image file
         $file = UploadedFile::fake()->create('archive.txt');

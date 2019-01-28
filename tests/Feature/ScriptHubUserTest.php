@@ -8,12 +8,13 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
+use Illuminate\Support\Carbon;
+
 use \App\TempRegistration;
 use \App\Bots;
 use \App\ScriptHubUsers;
 use \App\DiscordUsers;
 
-use \Carbon\Carbon;
 use \Faker\Factory;
 
 class UserRegistrationTest extends TestCase
@@ -260,5 +261,49 @@ class UserRegistrationTest extends TestCase
         // Checking if description has changed
         $this->assertTrue($user->description == $input['description'],
                           'The description wasn\'t updated -> ' . $user->description . ' != ' . $input['description']);
+    }
+
+    /**
+     * Checks if user can upload avatar<br>
+     * Checks if uploaded file is image.
+     *
+     * @return void
+     */
+    public function testUploadAvatar() {
+        Storage::fake('public');
+
+        // Creating user
+        $user = factory(ScriptHubUsers::class)->create([
+            'email_verified_at' => Carbon::now(),
+        ]);
+
+        // Editting avatar
+        $file = UploadedFile::fake()->image('avatar.jpg');
+        $input = [
+            'avatar' => $file,
+        ];
+        $this->actingAs($user)
+             ->put(route('users.update', $user), $input)
+             ->assertRedirect(route('home'));
+
+        // Assert the file was stored
+        $storage_path = 'storage/avatars/' . $user->id . '_avatar.' . $file->extension();
+        Storage::disk('public')->assertExists($storage_path);
+
+        // Refresh user
+        $user->refresh();
+
+        // Assert avatar_url was change
+        $this->assertTrue($user->avatar_url == asset($storage_path),
+                          'Avatar hasn\'t changed -> ' . $user->avatar_url . ' != ' . asset($storage_path));
+
+        // Giving not-image file
+        $file = UploadedFile::fake()->create('archive.txt');
+        $input = [
+            'avatar' => $file,
+        ];
+        $this->actingAs($user)
+             ->put(route('users.update', $user), $input)
+             ->assertStatus(302);
     }
 }

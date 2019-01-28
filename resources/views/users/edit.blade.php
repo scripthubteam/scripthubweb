@@ -50,7 +50,7 @@
     <div class="w-100"></div>
     <div class="col-6 form-group">
         {!! Form::label('avatar', 'Avatar') !!}
-        {!! Form::file('image', [
+        {!! Form::file('avatar', [
             'class' => 'form-control-file'
         ]) !!}
     </div>

@@ -3,6 +3,10 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Storage;
+use \Illuminate\Support\Facades\Route;
+
+use \App\ScriptHubUsers;
 
 class ScriptHubUsersRequest extends FormRequest
 {
@@ -15,9 +19,9 @@ class ScriptHubUsersRequest extends FormRequest
     public function authorize()
     {
         // Getting ID based on route
-        $user = \Illuminate\Support\Facades\Route::current()->user;
+        $user = Route::current()->user;
         // Creating user based on that ID
-        $scriptHubUser = \App\ScriptHubUsers::findOrFail($user);
+        $scriptHubUser = ScriptHubUsers::findOrFail($user);
 
         // Checking if username wasn't changed
         if ($this->has('username') && $this->input('username') == $scriptHubUser->username) {
@@ -27,6 +31,15 @@ class ScriptHubUsersRequest extends FormRequest
         // Checking if email wasn't changed
         if ($this->has('email') && $this->input('email') == $scriptHubUser->email) {
             $this->request->remove('email');
+        }
+
+        // Checks if avatar is given
+        if ($this->has('avatar')) {
+            $file = $this->file('avatar');
+            $path = Storage::disk('public')->putFileAs(
+                'storage/avatars', $file, $scriptHubUser->id . '_avatar.' . $file->extension()
+            );
+            $this->request->add(['avatar_url' => asset($path)]);
         }
 
         return true;

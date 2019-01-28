@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\ScriptHubUsers;
-use App\Http\Requests\ScriptHubUsersRequest;
 use Auth;
+
+use App\Http\Requests\ScriptHubUsersRequest;
+use App\ScriptHubUsers;
 
 class ScriptHubUsersController extends Controller
 {

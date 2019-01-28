@@ -61,9 +61,7 @@ class UserRegistrationTest extends TestCase
         $this->assertDatabaseHas('scripthub_users', [
             'username' => $input['username'],
         ]);
-        $this->assertDatabaseMissing('tmp_registration', [
-            'discord_users_id' => $tmp->discord_user->id,
-        ]);
+        $this->assertDatabaseMissing('tmp_registration', $tmp->getAttributes());
 
         // Logout
         $this->post('logout');
@@ -305,5 +303,31 @@ class UserRegistrationTest extends TestCase
         $this->actingAs($user)
              ->put(route('users.update', $user), $input)
              ->assertStatus(302);
+    }
+
+    /**
+     * Checks if a user can remove itself.
+     *
+     * @return void
+     */
+    public function testRemoveUser() {
+        // Creating random users
+        $user = factory(ScriptHubUsers::class)->create([
+            'email_verified_at' => Carbon::now(),
+        ]);
+        $random_user = factory(ScriptHubUsers::class)->create([
+            'email_verified_at' => Carbon::now(),
+        ]);
+
+        // Editting (with forbidden)
+        $this->actingAs($random_user)
+             ->delete(route('users.destroy', $user))
+             ->assertForbidden();
+        $this->actingAs($user)
+             ->delete(route('users.destroy', $user))
+             ->assertRedirect(route('root'));
+
+        // Assert user was destroyed
+        $this->assertDatabaseMissing('scripthub_users', $user->getAttributes());
     }
 }

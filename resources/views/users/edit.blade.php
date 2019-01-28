@@ -8,7 +8,7 @@
     </div>
     {!! Form::model($scriptHubUser, [
         'route' => ['users.update', $scriptHubUser],
-        'method' => 'PUT',
+        'method' => 'put',
         'class' => 'row align-items-start justify-content-end border border-black rounded p-4',
         'files' => true
     ]) !!}

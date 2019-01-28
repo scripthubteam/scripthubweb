@@ -117,5 +117,14 @@ class ScriptHubUsersController extends Controller
         if($currentUser != $scriptHubUser) {
             abort(403, 'Acceso denegado. No puedes borrar a otros usuarios.');
         }
+
+        // Deleting user
+        $scriptHubUser->delete();
+
+        // Log out
+        Auth::logout();
+
+        // Redirect
+        return redirect()->route('root')->with('status', 'Usuario eliminado.');
     }
 }

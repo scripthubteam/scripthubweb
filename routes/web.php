@@ -23,7 +23,7 @@ Auth::routes(['verify' => true]);
 // ScriptHubUsersController
 Route::get('/home', 'ScriptHubUsersController@index')->name('home');
 Route::resource('/users', 'ScriptHubUsersController')->except([
-    'index'
+    'index', 'create', 'store'
 ]);
 
 // BotsControllers

@@ -26,7 +26,7 @@ class ScriptHubUsers extends Authenticatable implements MustVerifyEmail
         'password',
         'description',
         'avatar_url',
-        'discord_users_id',
+        'fk_discord_users',
     ];
 
     /**
@@ -49,7 +49,7 @@ class ScriptHubUsers extends Authenticatable implements MustVerifyEmail
      * @return  discord_user The Discord User of the ScriptHub User.
      */
     public function discord_user() {
-        return $this->belongsTo('App\DiscordUsers', 'discord_users_id', 'id');
+        return $this->belongsTo('App\DiscordUsers', 'fk_discord_users', 'id');
     }
 
     /**
@@ -58,7 +58,7 @@ class ScriptHubUsers extends Authenticatable implements MustVerifyEmail
      * @return App\Bots bots
      */
     public function bots() {
-        return $this->hasMany('App\Bots', 'scripthub_users_id', 'id');
+        return $this->hasMany('App\Bots', 'fk_scripthub_users', 'id');
     }
 
     /**

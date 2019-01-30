@@ -20,21 +20,21 @@ class CreateBotsTable extends Migration
             $table->char('prefix', 5)->unique()->comment('Prefix for the bot');
             $table->text('info')->default('Beep boop beep?')->nullable()->comment('Info abot the bot');
             $table->boolean('validated')->default(false)->comment('Declares if the Bot is on out Discord Server.');
-            $table->string('discord_users_id', 50)->unique()->comment('The Discord ID for the bot.');
-            $table->unsignedInteger('scripthub_users_id')->comment('The ID for the Script Hub User owner.');
-            $table->string('scripthub_users_discord_users_id', 50)->comment('The Discord ID for the owner.');
+            $table->string('fk_discord_users', 50)->unique()->comment('The Discord ID for the bot.');
+            $table->unsignedInteger('fk_scripthub_users')->comment('The ID for the Script Hub User owner.');
+            $table->string('fk_scripthub_users_discord_users', 50)->comment('The Discord ID for the owner.');
 
             // Setting up foreing keys
-            $table->foreign('scripthub_users_id')
+            $table->foreign('fk_scripthub_users')
                   ->references('id')
                   ->on('scripthub_users')
                   ->onDelete('cascade');
-            $table->foreign('discord_users_id')
+            $table->foreign('fk_discord_users')
                   ->references('id')
                   ->on('discord_users')
                   ->onDelete('cascade');
-            $table->foreign('scripthub_users_discord_users_id')
-                  ->references('discord_users_id')
+            $table->foreign('fk_scripthub_users_discord_users')
+                  ->references('fk_discord_users')
                   ->on('scripthub_users')
                   ->onDelete('cascade');
         });

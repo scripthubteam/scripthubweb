@@ -28,12 +28,12 @@ class AdminSeeder extends Seeder
             'email_verified_at' => Carbon\Carbon::now(),
             'description' => 'Oh lord I dont know what I will do-o-o-o-o. All I do is sit and si-i-i-i-gh OH LORD!',
             'is_admin' => true,
-            'discord_users_id' => $discord_user->id,
+            'fk_discord_users' => $discord_user->id,
             ]);
 
         $bots = factory(Bots::class, 4)->create([
-            'scripthub_users_id' => $user->id,
-            'scripthub_users_discord_users_id' => $discord_user->id,
+            'fk_scripthub_users' => $user->id,
+            'fk_scripthub_users_discord_users' => $discord_user->id,
         ]);
     }
 }

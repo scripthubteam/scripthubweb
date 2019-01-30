@@ -66,7 +66,7 @@ class RegisterController extends Controller
             'email' => 'required|email|unique:scripthub_users,email',
             'password' => 'required',
             'repeat_password' => 'required|same:password',
-            'discord_users_id' => 'required|exists:tmp_registration,discord_users_id',
+            'fk_discord_users' => 'required|exists:tmp_registration,discord_users_id',
             'hash_code' => 'required|exists:tmp_registration,hash_code',
         ];
         $messages = [
@@ -87,7 +87,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        TempRegistration::deleteById($data['discord_users_id']);
+        TempRegistration::deleteById($data['fk_discord_users']);
         return ScriptHubUsers::create($data);
     }
 }

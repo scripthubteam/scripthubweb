@@ -18,10 +18,10 @@ class CreateTmpRegistration extends Migration
             $table->increments('id')->comment('Declares the row ID.');
             $table->string('hash_code')->comment('Hash code generate from SHA256 to (discord_id + nick).');
             $table->timestamp('requested_at')->useCurrent()->comment('Declares when the request was made.');
-            $table->string('discord_users_id', 50)->unique()->comment('The ID the references the Discord User.');
+            $table->string('fk_discord_users', 50)->unique()->comment('The ID the references the Discord User.');
 
             // Setting up Foreign Key
-            $table->foreign('discord_users_id')
+            $table->foreign('fk_discord_users')
                   ->references('id')
                   ->on('discord_users')
                   ->onDelete('cascade');

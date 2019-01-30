@@ -39,15 +39,6 @@ class DiscordUsers extends Model
      * @return  App\ScriptHubUsers scripthub_user
      */
     public function scripthub_user() {
-        return $this->hasOne('App\ScriptHubUsers', 'discord_users_id', 'id');
-    }
-
-    /**
-     * Gets the bots of the User.
-     *
-     * @return App\Bots bots
-     */
-    public function bots() {
-        return $this->hasMany('App\Bots', 'owner_discord_users_id', 'id');
+        return $this->hasOne('App\ScriptHubUsers', 'fk_discord_users', 'id');
     }
 }

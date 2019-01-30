@@ -16,7 +16,7 @@ class TempRegistration extends Model
      */
     protected $fillable = [
         'hash_code',
-        'discord_users_id',
+        'fk_discord_users',
     ];
 
     /**
@@ -41,7 +41,7 @@ class TempRegistration extends Model
      * @var string $discord_users_id
      */
     public static function deleteById(string $discord_users_id) {
-        static::where('discord_users_id', $discord_users_id)->first()->delete();
+        static::where('fk_discord_users', $discord_users_id)->first()->delete();
     }
 
     /**
@@ -50,6 +50,6 @@ class TempRegistration extends Model
      * @return App\DiscordUsers discord_user
      */
     public function discord_user() {
-        return $this->belongsTo('App\DiscordUsers', 'discord_users_id', 'id');
+        return $this->belongsTo('App\DiscordUsers', 'fk_discord_users', 'id');
     }
 }

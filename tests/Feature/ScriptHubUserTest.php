@@ -48,7 +48,7 @@ class UserRegistrationTest extends TestCase
             'email' => $faker->email,
             'password' => $password,
             'repeat_password' => $password,
-            'discord_users_id' => $tmp->discord_user->id,
+            'fk_discord_users' => $tmp->discord_user->id,
             'hash_code' => $tmp->hash_code,
         ];
 

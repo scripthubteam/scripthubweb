@@ -49,8 +49,8 @@
                 <small id="passwordHelp" class="d-none form-text text-danger">{{ __("Las contraseñas no son iguales") }}</small>
             </div>
             <div class="form-group row">
-                {!! Form::label('discord_users_id', 'Discord ID') !!}
-                {!! Form::text('discord_users_id', '', [
+                {!! Form::label('fk_discord_users', 'Discord ID') !!}
+                {!! Form::text('fk_discord_users', '', [
                     'class' => 'form-control',
                     'placeholder' => 'Tu ID de Discord',
                     'aria-describedby' => 'discordIdHelp',

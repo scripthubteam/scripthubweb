@@ -21,9 +21,9 @@ class Bots extends Model
         'prefix',
         'info',
         'validated',
-        'discord_users_id',
-        'scripthub_users_id',
-        'scripthub_users_discord_users_id',
+        'fk_discord_users',
+        'fk_scripthub_users',
+        'fk_scripthub_users_discord_users',
     ];
 
     /**
@@ -44,7 +44,7 @@ class Bots extends Model
      * @return App\ScriptHubUsers scripthub_user
      */
     public function scripthub_user() {
-        return $this->belongsTo('App\ScriptHubUsers', 'scripthub_users_id', 'id');
+        return $this->belongsTo('App\ScriptHubUsers', 'fk_scripthub_users', 'id');
     }
 
     /**
@@ -53,6 +53,6 @@ class Bots extends Model
      * @return App\DiscordUsers discord_user
      */
     public function discord_user() {
-        return $this->belongsTo('App\DiscordUsers', 'discord_users_id', 'id');
+        return $this->belongsTo('App\DiscordUsers', 'fk_discord_users', 'id');
     }
 }

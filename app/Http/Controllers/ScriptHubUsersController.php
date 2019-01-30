@@ -6,6 +6,7 @@ use Auth;
 
 use App\Http\Requests\ScriptHubUsersRequest;
 use App\ScriptHubUsers;
+use App\Bots;
 
 class ScriptHubUsersController extends Controller
 {
@@ -28,7 +29,7 @@ class ScriptHubUsersController extends Controller
      */
     public function index()
     {
-        $scriptHubUser = Auth::user();
+        $scriptHubUser = ScriptHubUsers::findOrFail(Auth::user()->id);
         return view('users.home', compact('scriptHubUser'));
     }
 
@@ -126,5 +127,20 @@ class ScriptHubUsersController extends Controller
 
         // Redirect
         return redirect()->route('root')->with('status', 'Usuario eliminado.');
+    }
+
+    /**
+     * Show user's bots.
+     *
+     * @param \App\ScriptHubUsers $scriptHubUser
+     * @return \Illuminate\Http\Response
+     */
+    public function bots(ScriptHubUsers $scriptHubUser, $user) {
+        $scriptHubUser = ScriptHubUsers::findOrFail($user);
+        $bots = Bots::where('scripthub_users_id', $scriptHubUser->id);
+        return view('bots.index', [
+            'bots' => $bots,
+            'user' => $scriptHubUser,
+        ]);
     }
 }

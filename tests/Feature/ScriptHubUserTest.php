@@ -84,26 +84,23 @@ class UserRegistrationTest extends TestCase
     }
 
     /**
-     * Once logged, the user access to his/her bots.
+     * Checks if a user can be displayed.
      *
      * @return void
      */
-    public function testAccessToBots() {
+    public function testShow() {
         // Creates user and its bots.
         $user = factory(ScriptHubUsers::class)->create([
             'email_verified_at' => Carbon::now(),
         ]);
-        $bots = factory(Bots::class, 3)->create([
-            'scripthub_users_id' => $user->id,
-            'scripthub_users_discord_users_id' => $user->discord_user->id,
-        ]);
+        $random_user = factory(ScriptHubUsers::class)->create();
 
-        // Checks if user can see every bot
-        foreach ($bots as $bot) {
-            $this->actingAs($user)
-                 ->get(route('bots.index'))
-                 ->assertSee($bot->name);
-        }
+        // Access to user displayed
+        $response = $this->actingAs($user)
+                         ->get(route('users.show', $random_user));
+        $response->assertOk();
+        $response->assertSee($random_user->username);
+        $response->assertSee($random_user->discord_users_id);
     }
 
     /**

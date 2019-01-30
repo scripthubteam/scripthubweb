@@ -25,8 +25,9 @@ Route::get('/home', 'ScriptHubUsersController@index')->name('home');
 Route::resource('/users', 'ScriptHubUsersController')->except([
     'index', 'create', 'store'
 ]);
+Route::get('/users/{user}/bots', 'ScriptHubUsersController@bots')->name('users.bots');
 
 // BotsControllers
-Route::resource('/user/bots', 'BotsController')->parameters([
+Route::resource('/bots', 'BotsController')->parameters([
     'bots' => 'bot_id',
 ]);

@@ -137,8 +137,8 @@ class ScriptHubUsersController extends Controller
      */
     public function bots(ScriptHubUsers $scriptHubUser, $user) {
         $scriptHubUser = ScriptHubUsers::findOrFail($user);
-        $bots = Bots::where('fk_scripthub_users', $scriptHubUser->id);
-        return view('bots.index', [
+        $bots = $scriptHubUser->bots;
+        return view('bots.index')->with([
             'bots' => $bots,
             'user' => $scriptHubUser,
         ]);

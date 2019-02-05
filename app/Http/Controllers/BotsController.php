@@ -26,7 +26,7 @@ class BotsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($scriptHubUser = null)
+    public function index()
     {
         $user = ScriptHubUsers::findOrFail(Auth::user()->id);
         $bots = Bots::where('fk_scripthub_users', $user->id)->get();

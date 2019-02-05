@@ -15,9 +15,7 @@ class Bots extends Model
      * @var array
      */
     protected $fillable = [
-        'id',
         'name',
-        'requested_at',
         'prefix',
         'info',
         'validated',

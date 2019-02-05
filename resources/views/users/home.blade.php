@@ -12,7 +12,7 @@
                     <div class="col">
                         <h1 class="col display-4">{{ $scriptHubUser->username }}</h1>
                         <p class="lead">
-                            (Discord ID: {{ $scriptHubUser->discord_users_id }})
+                            (Discord ID: {{ $scriptHubUser->fk_discord_users }})
                         </p>
                         <p>
                             @if ($scriptHubUser->description)

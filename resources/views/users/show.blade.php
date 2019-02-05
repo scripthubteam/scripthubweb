@@ -11,7 +11,7 @@
                 </div>
                 <div class="card-body">
                     <h4 class="card-title text-center">
-                        {{ $scriptHubUser->username }} (Discord ID: {{ $scriptHubUser->discord_users_id }})
+                        {{ $scriptHubUser->username }} (Discord ID: {{ $scriptHubUser->fk_discord_users }})
                     </h4>
                     <hr class="my-4">
                     <p class="card-text text-center">

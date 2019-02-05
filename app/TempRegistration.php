@@ -38,10 +38,10 @@ class TempRegistration extends Model
     /**
      * Deletes a Temporary Registration by discord id.
      *
-     * @var string $discord_users_id
+     * @var string $discord_user_id
      */
-    public static function deleteById(string $discord_users_id) {
-        static::where('fk_discord_users', $discord_users_id)->first()->delete();
+    public static function deleteById(string $discord_user_id) {
+        static::where('fk_discord_users', $discord_user_id)->first()->delete();
     }
 
     /**

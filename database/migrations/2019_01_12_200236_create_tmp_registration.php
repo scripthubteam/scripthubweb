@@ -13,7 +13,7 @@ class CreateTmpRegistration extends Migration
      */
     public function up()
     {
-        // insert into tmp_registration(hash_code, discord_users_id) values('1234', '316302647722377219');
+        // insert into tmp_registration(hash_code, fk_discord_users) values('1234', '316302647722377219');
         Schema::create('tmp_registration', function (Blueprint $table) {
             $table->increments('id')->comment('Declares the row ID.');
             $table->string('hash_code')->comment('Hash code generate from SHA256 to (discord_id + nick).');

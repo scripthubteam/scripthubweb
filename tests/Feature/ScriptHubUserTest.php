@@ -40,6 +40,10 @@ class UserRegistrationTest extends TestCase
         $tmp = factory(TempRegistration::class)->create();
         $discord_user = $tmp->discord_user;
 
+        // Checking if everything works
+        $this->assertDatabaseHas('tmp_registration', $tmp->getAttributes());
+        $this->assertDatabaseHas('discord_users', $discord_user->getAttributes());
+
         // Random input
         $faker = Factory::create();
         $password = $faker->password;
@@ -48,13 +52,11 @@ class UserRegistrationTest extends TestCase
             'email' => $faker->email,
             'password' => $password,
             'repeat_password' => $password,
-            'fk_discord_users' => $tmp->discord_user->id,
+            'fk_discord_users' => $tmp->fk_discord_users,
             'hash_code' => $tmp->hash_code,
         ];
 
         // Access registration and tries to register
-        $this->get(route('register'))
-             ->assertSee('¡Únete a Script Hub Team!');
         $this->post(route('register'), $input);
 
         // Checks if user was created and temp was removed
@@ -100,7 +102,7 @@ class UserRegistrationTest extends TestCase
                          ->get(route('users.show', $random_user));
         $response->assertOk();
         $response->assertSee($random_user->username);
-        $response->assertSee($random_user->discord_users_id);
+        $response->assertSee($random_user->fk_discord_users);
     }
 
     /**
@@ -122,7 +124,7 @@ class UserRegistrationTest extends TestCase
         // Sees Discord ID
         $this->actingAs($user)
              ->get('home')
-             ->assertSee($user->discord_users_id);
+             ->assertSee($user->fk_discord_users);
 
         // Sees description
         $description = Factory::create()->sentence;

@@ -66,14 +66,14 @@ class RegisterController extends Controller
             'email' => 'required|email|unique:scripthub_users,email',
             'password' => 'required',
             'repeat_password' => 'required|same:password',
-            'fk_discord_users' => 'required|exists:tmp_registration,discord_users_id',
+            'fk_discord_users' => 'required|exists:tmp_registration,fk_discord_users',
             'hash_code' => 'required|exists:tmp_registration,hash_code',
         ];
         $messages = [
             'username.unique' => 'Este nombre de usuario ya está en uso.',
             'email.unique' => 'Este email ya está en uso.',
             'repeat_password.same' => 'Las contraseñas deben ser iguales.',
-            'discord_users_id.exists' => 'El ID de Discord indicado no está registrado (¿Hiciste petición de registro con Script Hub Bot?).',
+            'fk_discord_users.exists' => 'El ID de Discord indicado no está registrado (¿Hiciste petición de registro con Script Hub Bot?).',
             'hash_code.exists' => 'El Token indicado no es correcto (¿Usaste el token dado por Script Hub Bot?).',
         ];
         return Validator::make($data, $rules, $messages);

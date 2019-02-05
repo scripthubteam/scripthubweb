@@ -54,7 +54,7 @@
                     'class' => 'form-control',
                     'placeholder' => 'Tu ID de Discord',
                     'aria-describedby' => 'discordIdHelp',
-                    'value' => 'old("discord_users_id")',
+                    'value' => 'old("fk_discord_users")',
                     'required',
                 ]) !!}
                 <small id="discordIdHelp" class="form-text text-muted">{{ __("El Bot debería indicártelo.") }}</small>

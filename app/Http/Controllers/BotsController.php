@@ -29,7 +29,7 @@ class BotsController extends Controller
     public function index()
     {
         $user = ScriptHubUsers::findOrFail(Auth::user()->id);
-        $bots = Bots::where('fk_scripthub_users', $user->id)->get();
+        $bots = Bots::all();
         return view('bots.index', compact('bots', 'user'));
     }
 

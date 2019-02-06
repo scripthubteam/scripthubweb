@@ -18,8 +18,6 @@ class Bots extends Model
         'name',
         'prefix',
         'info',
-        'validated',
-        'popularity',
         'fk_discord_users',
         'fk_scripthub_users',
         'fk_scripthub_users_discord_users',

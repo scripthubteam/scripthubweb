@@ -19,7 +19,8 @@ class BotsTest extends TestCase
     use WithFaker;
 
     /**
-     * Checks if Bot can be updated.
+     * Checks if a Bot can be created.<br>
+     * It also checks for incorrect values.
      *
      * @return void
      */
@@ -55,8 +56,46 @@ class BotsTest extends TestCase
              ->post(route('bots.store', $input))
              ->assertOk();
         $bot = Bots::where('fk_discord_users', $discord_bot->id)->first();
+        // Checking if bot was created
         $this->assertDatabaseHas('bots', $bot->getAttributes());
 
-        // Incorrect values
+        // Incorrect values //
+        // Creating Bot
+        $discord_bot = factory(DiscordUsers::class)->create();
+        $input = [
+            'name' => $this->faker->userName,
+            'prefix' => str_random(random_int(6, 20)),
+            'info' => $this->faker->sentence(3, true),
+            'fk_discord_users' => $discord_bot->id,
+        ];
+        $this->actingAs($user)
+             ->post(route('bots.store', $input))
+             ->assertRedirect(route('bots.create'));
+        // Checking if bot wasn't created
+        $this->assertDatabaseMissing('bots', [
+            'fk_discord_users' => $discord_bot->id,
+        ]);
+
+        // Long usename
+        $input['name'] = str_random(60);
+        $input['prefix'] = str_random(random_int(1, 5));
+        $this->actingAs($user)
+             ->post(route('bots.store', $input))
+             ->assertRedirect(route('bots.create'));
+        // Checking if bot wasn't created
+        $this->assertDatabaseMissing('bots', [
+            'fk_discord_users' => $discord_bot->id,
+        ]);
+
+        // Wrong ID
+        $input['name'] = $this->faker->userName;
+        $input['fk_discord_users'] = $this->faker->randomNumber(9);
+        $this->actingAs($user)
+             ->post(route('bots.store', $input))
+             ->assertRedirect(route('bots.create'));
+        // Checking if bot wasn't created
+        $this->assertDatabaseMissing('bots', [
+            'fk_discord_users' => $discord_bot->id,
+        ]);
     }
 }

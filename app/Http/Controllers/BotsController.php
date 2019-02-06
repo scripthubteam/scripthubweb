@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Bots;
 use App\ScriptHubUsers;
 use Auth;
+use App\Http\Requests\BotsRequest;
 
 class BotsController extends Controller
 {
@@ -47,10 +48,10 @@ class BotsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\BotsRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BotsRequest $request)
     {
         if(empty($request->all())) {
             return redirect()->route('bots.create')

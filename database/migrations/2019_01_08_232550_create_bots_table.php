@@ -20,6 +20,7 @@ class CreateBotsTable extends Migration
             $table->char('prefix', 5)->unique()->comment('Prefix for the bot');
             $table->text('info')->default('Beep boop beep?')->nullable()->comment('Info about the bot');
             $table->boolean('validated')->default(false)->comment('Declares if the Bot is part of the Discord Server.');
+            $table->integer('popularity')->default(0)->comment('The popularity of the Bot in the Discord Server.');
             $table->string('fk_discord_users', 50)->unique()->comment('The Discord ID for the bot.');
             $table->unsignedInteger('fk_scripthub_users')->comment('The ID for the Script Hub User owner.');
             $table->string('fk_scripthub_users_discord_users', 50)->comment('The Discord ID for the owner.');

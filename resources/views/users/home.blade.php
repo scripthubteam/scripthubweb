@@ -23,7 +23,7 @@
                 </div>
                 <hr class="my-4">
                 <div class="row align-items-center justify-content-md-end">
-                    <a href="" class="col-12 col-md-3 btn btn-primary btn-lg my-2 my-sm-0" role="button">Administrar Bots</a>
+                    <a href="{{ route('users.bots', $scriptHubUser) }}" class="col-12 col-md-3 btn btn-primary btn-lg my-2 my-sm-0" role="button">Administrar Bots</a>
                     <a href="{{ route('users.edit', $scriptHubUser) }}" class="col-12 col-md-3 btn btn-secondary btn-lg my-2 my-sm-0 ml-md-2" role="button">Editar Perfil</a>
                     <a id="removeUserBtn" href="{{ route('users.destroy', $scriptHubUser) }}" class="col-12 col-md-3 btn btn-danger btn-lg my-2 my-sm-0 ml-md-2" role="button">Eliminar Perfil</a>
                     {!! Form::open([

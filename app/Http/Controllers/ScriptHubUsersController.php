@@ -137,7 +137,7 @@ class ScriptHubUsersController extends Controller
      */
     public function bots(ScriptHubUsers $scriptHubUser, $user) {
         $scriptHubUser = ScriptHubUsers::findOrFail($user);
-        $bots = $scriptHubUser->bots;
+        $bots = $scriptHubUser->bots->sortByDesc('popularity');
         return view('bots.index')->with([
             'bots' => $bots,
             'user' => $scriptHubUser,

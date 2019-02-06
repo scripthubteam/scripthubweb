@@ -63,13 +63,11 @@ class BotsController extends Controller
         // Getting user
         $user = ScriptHubUsers::findOrFail(Auth::user()->id);
         // Creating bot
-        Bots::create(array_merge(
-            $request->all(),
-            [
-                'fk_scripthub_users' => $user->id,
-                'fk_scripthub_users_discord_users' => $user->fk_discord_users,
-            ]
-        ));
+        $bot = Bots::make($request->all());
+        // Foreign keys aren't mass assigment to avoid falsehood of identity
+        $bot->fk_scripthub_users = $user->id;
+        $bot->fk_scripthub_users_discord_users = $user->fk_discord_users;
+        $bot->save();
     }
 
     /**

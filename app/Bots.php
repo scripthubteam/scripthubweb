@@ -19,8 +19,6 @@ class Bots extends Model
         'prefix',
         'info',
         'fk_discord_users',
-        'fk_scripthub_users',
-        'fk_scripthub_users_discord_users',
     ];
 
     /**

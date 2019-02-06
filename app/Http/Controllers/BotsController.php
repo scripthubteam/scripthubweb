@@ -29,7 +29,7 @@ class BotsController extends Controller
     public function index()
     {
         $user = ScriptHubUsers::findOrFail(Auth::user()->id);
-        $bots = Bots::all();
+        $bots = Bots::all()->sortBy('popularity');
         return view('bots.index', compact('bots', 'user'));
     }
 
@@ -52,7 +52,23 @@ class BotsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if(empty($request->all())) {
+            return redirect()->route('bots.create')
+                             ->withErrors([
+                                'empty' => '¡El formulario está vacío!',
+                             ]);
+        }
+
+        // Getting user
+        $user = ScriptHubUsers::findOrFail(Auth::user()->id);
+        // Creating bot
+        Bots::create(array_merge(
+            $request->all(),
+            [
+                'fk_scripthub_users' => $user->id,
+                'fk_scripthub_users_discord_users' => $user->fk_discord_users,
+            ]
+        ));
     }
 
     /**

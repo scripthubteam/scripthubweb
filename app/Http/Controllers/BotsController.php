@@ -29,9 +29,8 @@ class BotsController extends Controller
      */
     public function index()
     {
-        $user = ScriptHubUsers::findOrFail(Auth::user()->id);
-        $bots = Bots::all()->sortBy('popularity');
-        return view('bots.index', compact('bots', 'user'));
+        $bots = Bots::all()->sortByDesc('popularity');
+        return view('bots.index', compact('bots'));
     }
 
     /**

@@ -103,6 +103,9 @@
                                     <a href="{{ route('bots.index') }}" class="dropdown-item">
                                         <span class="fas fa-users-cog"></span> Bots
                                     </a>
+                                    <a href="{{ route('users.bots', Auth::user()) }}" class="dropdown-item">
+                                        <span class="fas fa-user-tag"></span> Tus Bots
+                                    </a>
                                     <div class="dropdown-divider"></div>
                                     <a href="{{ route('logout') }}" class="dropdown-item"
                                         onclick="event.preventDefault();

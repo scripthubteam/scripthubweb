@@ -5,10 +5,9 @@ use Faker\Generator as Faker;
 $factory->define(App\Bots::class, function (Faker $faker) {
     $owner = factory(App\ScriptHubUsers::class)->create();
     return [
-        'id' => $faker->randomNumber(9),
         'name' => $faker->userName,
         'requested_at' => $faker->dateTimeThisDecade,
-        'prefix' => str_random(4),
+        'prefix' => str_random(random_int(1, 5)),
         'info' => $faker->boolean(50) ? $faker->sentences(3, true) : null,
         'validated' => $faker->boolean(50),
         'popularity' => random_int(0, 43),

@@ -15,5 +15,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ScriptHubUsersSeeder::class);
         $this->call(DiscordUsersSeeder::class);
         $this->call(AdminSeeder::class);
+        $this->call(BotsSeeder::class);
     }
 }

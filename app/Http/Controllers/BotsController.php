@@ -40,7 +40,7 @@ class BotsController extends Controller
      */
     public function create()
     {
-        $user = \Auth::user();
+        $user = ScriptHubUsers::findOrFail(Auth::user()->id);
         return view('bots.create', compact('user'));
     }
 
@@ -89,7 +89,14 @@ class BotsController extends Controller
      */
     public function edit(Bots $bot, $bot_id)
     {
+        $user = ScriptHubUsers::findOrFail(Auth::user()->id);
         $bot = Bots::findOrFail($bot_id);
+        if ($bot->scripthub_user != $user) {
+            return redirect()->route('users.bots', $user)
+                            ->withErrors([
+                                'forbidden' => 'No puedes editar los bots de otros usuarios.',
+                            ]);
+        }
     }
 
     /**
@@ -99,9 +106,13 @@ class BotsController extends Controller
      * @param  \App\Bots  $bot
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Bots $bot)
+    public function update(Request $request, Bots $bot, $bot_id)
     {
-        //
+        $user = ScriptHubUsers::findOrFail(Auth::user()->id);
+        $bot = Bots::findOrFail($bot_id);
+        if ($bot->scripthub_user != $user) {
+            abort(403, 'Acceso denegado. No puedes editar bots de otros usuarios.');
+        }
     }
 
     /**

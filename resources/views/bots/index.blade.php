@@ -33,6 +33,8 @@
                     <h2 class="font-weight-light">
                         ¡Tus Bots!
                     </h2>
+                    <div class="w-100 my-2"></div>
+                    <a href="{{ route('bots.create') }}" class="btn btn-info px-5">¡Añadir Bot!</a>
                 @else
                     <h2 class="font-weight-light">
                         ¡Bots de {{ $user->username }}!

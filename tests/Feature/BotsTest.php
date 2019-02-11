@@ -162,4 +162,56 @@ class BotsTest extends TestCase
         $this->assertFalse($bot->fk_scripthub_users == $random_user->id);
         $this->assertFalse($bot->fk_scripthub_users_discord_users == $random_user->fk_discord_users);
     }
+
+    /**
+     * Tests if user can edit a bot.
+     * Also tests security issues such as editting someone else bot.
+     *
+     * @return void
+     */
+    public function testEditBot()
+    {
+        // User for access
+        $user = factory(ScriptHubUsers::class)->create([
+            'email_verified_at' => Carbon::now(),
+        ]);
+        // Other user
+        $random_user = factory(ScriptHubUsers::class)->create([
+            'email_verified_at' => Carbon::now(),
+        ]);
+        // Discord Bot
+        $discord_bot = factory(DiscordUsers::class)->create();
+        // Bot
+        $bot = factory(Bots::class)->create([
+            'fk_discord_users' => $discord_bot->id,
+            'fk_scripthub_users' => $user->id,
+            'fk_scripthub_users_discord_users' => $user->fk_discord_users,
+        ]);
+
+        // Creating input
+        $this->setUpFaker();
+        $input = [
+            'name' => $this->faker()->userName,
+        ];
+
+        // Accessing with non-owner user
+        $this->actingAs($random_user)
+             ->get(route('bots.edit', $bot))
+             ->assertRedirect(route('users.bots', $random_user));
+        $this->actingAs($random_user)
+             ->put(route('bots.update', $bot), $input)
+             ->assertForbidden();
+
+        // Accessing with owner
+        $this->actingAs($user)
+             ->get(route('bots.edit', $bot))
+             ->assertOk();
+        $this->actingAs($user)
+             ->put(route('bots.update', $bot), $input)
+             ->assertOk();
+
+        // Reloading data
+        $bot->refresh();
+        $this->assertEquals($input['name'], $bot->name, 'Name wasn\'t changed!');
+    }
 }

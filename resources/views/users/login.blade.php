@@ -20,7 +20,7 @@
                     'required',
                     'autofocus'
                 ]) !!}
-                <a href="{{ route('register') }}" class="link">{{ __('Registrarme') }}</a>
+                <a href="{{ route('register') }}" class="link text-discord">{{ __('Registrarme') }}</a>
             </div>
             <div class="form-group">
                 {!! Form::label('password', 'Contraseña') !!}
@@ -29,7 +29,7 @@
                     'placeholder' => 'Contraseña para el Login',
                     'required'
                 ]) !!}
-                <a href="{{ route('password.request') }}" class="link">{{ __('Recuperar contraseña') }}</a>
+                <a href="{{ route('password.request') }}" class="link text-discord">{{ __('Recuperar contraseña') }}</a>
             </div>
             <div class="form-group form-check">
                 {!! Form::checkbox('remember', '', false, [
@@ -41,7 +41,7 @@
                 ]) !!}
             </div>
             <div class="form-group align-self-center">
-                {!! Form::submit('Entrar', ['class' => 'btn btn-info']) !!}
+                {!! Form::submit('Entrar', ['class' => 'btn btn-discord']) !!}
                 {!! Form::reset('Limpiar', ['class' => 'btn btn-secondary']) !!}
             </div>
             {!! Form::close() !!}

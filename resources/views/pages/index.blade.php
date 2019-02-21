@@ -1,7 +1,6 @@
 @extends('layouts.main')
 
 @section('stylesheets')
-<link rel="stylesheet" href="/css/welcome.css">
 @stop
 
 @section('title', "Documentación y Bots")
@@ -22,7 +21,7 @@
         </div>
     </div>
 </section>
-<section class="documentacion text-center" id="documentacion">
+<section class="bg-info text-center" id="documentacion">
     <div class="container-fluid">
         <div class="row align-items-center justify-content-center py-5">
             <h2 class="text-white col-11 col-sm-8">¡Empieza hoy a crear tu Bot!</h2>

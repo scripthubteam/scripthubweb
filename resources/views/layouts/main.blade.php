@@ -38,12 +38,8 @@
     <link rel="shortcut icon" href="{{ url('/').'/favicon.png' }}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
 
-    <!-- Bootstrap Stuff -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-
     <!-- Personal Style -->
     <link rel="stylesheet" href="{{ url('/').'/css/layout.css' }}">
-    <link rel="stylesheet" href="{{ url('/').'/css/main.css' }}">
     @yield('stylesheets')
 
     <title>{{ Config::get('app.name', 'Script Hub Team') }} - @yield('title')</title>
@@ -67,34 +63,34 @@
             <div class="collapse navbar-collapse" id="navigatorMenu">
                 <ul class="navbar-nav navbar-dark ml-auto">
                     <li class="nav-item mt-2 mt-lg-0 ml-0 ml-lg-2">
-                        <a href="{{ route('root') }}" class="nav-link btn pt-lg-2" id="itemInfo">
+                        <a href="{{ route('root') }}" class="nav-link btn btn-dirty-white pt-lg-2" id="itemInfo">
                             <span class="fas fa-info"></span> Información
                         </a>
                     </li>
                     <li class="nav-item mt-2 mt-lg-0 ml-0 ml-lg-2">
-                        <a href="{{ $link."#documentacion" }}" class="nav-link btn text-light pt-lg-2" id="itemDoc">
+                        <a href="{{ $link."#documentacion" }}" class="nav-link btn btn-info text-light pt-lg-2" id="itemDoc">
                             <span class="fa fa-book"></span> Documentación
                         </a>
                     </li>
                     <li class="nav-item mt-2 mt-lg-0 ml-0 ml-lg-2">
-                        <a href="https://www.patreon.com/scripthubteam" target="_blank" class="nav-link btn text-light pt-lg-2" id="itemPatreon">
+                        <a href="https://www.patreon.com/scripthubteam" target="_blank" class="nav-link btn btn-patreon text-light pt-lg-2" id="itemPatreon">
                             <span class="fab fa-patreon"></span> Patreon
                         </a>
                     </li>
                     <li class="nav-item mt-2 mt-lg-0 ml-0 ml-lg-2">
-                        <a href="https://discordapp.com/invite/VK2V7Yk" target="_blank" class="nav-link btn text-light pt-lg-2" id="itemDiscord">
+                        <a href="https://discordapp.com/invite/VK2V7Yk" target="_blank" class="nav-link btn btn-discord text-light pt-lg-2" id="itemDiscord">
                             <span class="fab fa-discord"></span> Discord
                         </a>
                     </li>
                         @guest
                             <li class="nav-item mt-2 mt-lg-0 ml-0 ml-lg-2">
-                                <a href="{{ route('login') }}" class="nav-link btn text-light pt-lg-2" id="itemLogin">
+                                <a href="{{ route('login') }}" class="nav-link btn btn-secondary text-light pt-lg-2" id="itemLogin">
                                     <span class="fas fa-user"></span> Iniciar sesión
                                 </a>
                             </li>
                         @else
                             <li class="nav-item dropdown mt-2 mt-lg-0 ml-0 ml-lg-2">
-                                <a class="nav-link dropdown-toggle btn text-light pt-lg-2" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" id="itemLogin">
+                                <a class="nav-link dropdown-toggle btn btn-secondary text-light pt-lg-2" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" id="itemLogin">
                                     <span class="fas fa-user"></span> {{ Auth::user()->username }}
                                 </a>
                                 <div class="dropdown-menu">

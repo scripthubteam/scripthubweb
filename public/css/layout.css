@@ -167,13 +167,13 @@ sup {
 }
 
 a {
-  color: #2C2F33;
+  color: #7289da;
   text-decoration: none;
   background-color: transparent;
   -webkit-text-decoration-skip: objects;
 }
 a:hover {
-  color: #09090a;
+  color: #3556ca;
   text-decoration: underline;
 }
 
@@ -2929,11 +2929,11 @@ fieldset:disabled a.btn {
 
 .btn-link {
   font-weight: 400;
-  color: #2C2F33;
+  color: #7289da;
   background-color: transparent;
 }
 .btn-link:hover {
-  color: #09090a;
+  color: #3556ca;
   text-decoration: underline;
   background-color: transparent;
   border-color: transparent;
@@ -4471,13 +4471,13 @@ input[type=button].btn-block {
   padding: 0.5rem 0.75rem;
   margin-left: -1px;
   line-height: 1.25;
-  color: #2C2F33;
+  color: #7289da;
   background-color: #fff;
   border: 1px solid #dee2e6;
 }
 .page-link:hover {
   z-index: 2;
-  color: #09090a;
+  color: #3556ca;
   text-decoration: none;
   background-color: #e9ecef;
   border-color: #dee2e6;
@@ -7193,6 +7193,38 @@ button.bg-dirty-white:focus {
   width: auto !important;
 }
 
+.w-25vw {
+  width: 25vw !important;
+}
+
+.w-50vw {
+  width: 50vw !important;
+}
+
+.w-75vw {
+  width: 75vw !important;
+}
+
+.w-100vw {
+  width: 100vw !important;
+}
+
+.w-25vh {
+  width: 25vh !important;
+}
+
+.w-50vh {
+  width: 50vh !important;
+}
+
+.w-75vh {
+  width: 75vh !important;
+}
+
+.w-100vh {
+  width: 100vh !important;
+}
+
 .h-25 {
   height: 25% !important;
 }
@@ -7211,6 +7243,38 @@ button.bg-dirty-white:focus {
 
 .h-auto {
   height: auto !important;
+}
+
+.h-25vw {
+  height: 25vw !important;
+}
+
+.h-50vw {
+  height: 50vw !important;
+}
+
+.h-75vw {
+  height: 75vw !important;
+}
+
+.h-100vw {
+  height: 100vw !important;
+}
+
+.h-25vh {
+  height: 25vh !important;
+}
+
+.h-50vh {
+  height: 50vh !important;
+}
+
+.h-75vh {
+  height: 75vh !important;
+}
+
+.h-100vh {
+  height: 100vh !important;
 }
 
 .mw-100 {

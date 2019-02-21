@@ -7,7 +7,7 @@
 
 @section('main_content')
 <section class="informacion bg-white text-center" id="informacion">
-    <div class="container-fluid h-lg-100vh">
+    <div class="container-fluid h-100vh">
         <div class="row align-items-center justify-content-center p-5">
             <img src="{{ url('/').'/assets/logo-bn.png' }}" alt="Script Hub - Documentación y Bots" class="img-fluid rounded">
         </div>

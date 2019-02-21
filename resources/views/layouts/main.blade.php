@@ -43,6 +43,7 @@
 
     <!-- Personal Style -->
     <link rel="stylesheet" href="{{ url('/').'/css/layout.css' }}">
+    <link rel="stylesheet" href="{{ url('/').'/css/main.css' }}">
     @yield('stylesheets')
 
     <title>{{ Config::get('app.name', 'Script Hub Team') }} - @yield('title')</title>

@@ -83,7 +83,7 @@
                     <div class="w-100 my-2"></div>
                     <div class="container-fluid">
                         <div class="row justify-content-center">
-                            <a href="{{ route('bots.show', $bot) }}" class="col-10 btn btn-discord">Información</a>
+                            <a href="{{ route('bots.show', $bot) }}" class="col-10 btn btn-primary">Información</a>
                             @if (isset($user) && Auth::user()->id == $bot->fk_scripthub_users)
                                 <div class="w-100 my-1"></div>
                                 <a href="{{ route('bots.edit', $bot) }}" class="col-10 btn btn-secondary">Editar</a>

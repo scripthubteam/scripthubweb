@@ -10,12 +10,8 @@ $font-body-condensed: 'Roboto Condensed', sans-serif;
 $color-pri-0: #2C2F33;
 $color-pri-1: #686E75;
 $color-pri-2: #4B4F55;
-$color-sec-1: #302F36;
-$color-sec-1: #706E7B;
 $color-sec-1: #514F5A;
 $color-sec-2: #2A3230;
-$color-sec-2: #657370;
-$color-sec-2: #485451;
 
 // Color system
 $discord: #7289da;
@@ -23,10 +19,9 @@ $info: #008d9d;
 $patreon: #F80;
 
 $theme-colors: (
-    "primary": $color-pri-0,
+    "primary": #7289da,
     "secondary": $color-sec-1,
-    "terciary": $color-sec-2,
-    "discord": $discord,
+    "terciary": $color-pri-0,
     "info": $info,
     "patreon": $patreon,
     "dirty-white": #dddbdb

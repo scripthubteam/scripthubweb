@@ -41,7 +41,7 @@
                 ]) !!}
             </div>
             <div class="form-group align-self-center">
-                {!! Form::submit('Entrar', ['class' => 'btn btn-discord']) !!}
+                {!! Form::submit('Entrar', ['class' => 'btn btn-primary']) !!}
                 {!! Form::reset('Limpiar', ['class' => 'btn btn-secondary']) !!}
             </div>
             {!! Form::close() !!}

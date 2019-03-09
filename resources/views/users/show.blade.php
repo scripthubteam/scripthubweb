@@ -18,7 +18,7 @@
                         {{ $scriptHubUser->description }}
                     </p>
                     <hr class="my-4">
-                    <a href="{{ route('users.bots', $scriptHubUser) }}" class="btn btn-discord justify-self-end">Ver Bots</a>
+                    <a href="{{ route('users.bots', $scriptHubUser) }}" class="btn btn-primary justify-self-end">Ver Bots</a>
                 </div>
             </div>
         </div>

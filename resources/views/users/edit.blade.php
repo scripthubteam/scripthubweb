@@ -57,7 +57,7 @@
     <div class="w-100"></div>
     <div class="form-group">
         {!! Form::submit('Actualizar', [
-            'class' => 'btn btn-discord',
+            'class' => 'btn btn-primary',
         ]) !!}
         {!! Form::reset('Limpiar', [
             'class' => 'btn btn-secondary',

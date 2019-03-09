@@ -44,7 +44,7 @@
 
     <title>{{ Config::get('app.name', 'Script Hub Team') }} - @yield('title')</title>
 </head>
-<body class="bg-primary">
+<body class="bg-white">
     {{-- Checking if User is in Home --}}
     @if (Request::route()->getName() != 'root')
         @php ($link = route('root'))
@@ -52,7 +52,7 @@
         @php ($link = "")
     @endif
     <!-- Navigator -->
-    <nav class="navbar navbar-expand-lg sticky-top bg-primary" id="navigatorHeader">
+    <nav class="navbar navbar-expand-lg sticky-top bg-terciary" id="navigatorHeader">
         <div class="container">
             <a href="{{ route('root') }}" class="navbar-brand" id="logo-scripthub">
                 <img src="{{ url('/').'/assets/server-ui/logo-cord-raw.png' }}" alt="Logo Script Hub Team">
@@ -78,7 +78,7 @@
                         </a>
                     </li>
                     <li class="nav-item mt-2 mt-lg-0 ml-0 ml-lg-2">
-                        <a href="https://discordapp.com/invite/VK2V7Yk" target="_blank" class="nav-link btn btn-discord text-light pt-lg-2" id="itemDiscord">
+                        <a href="https://discordapp.com/invite/VK2V7Yk" target="_blank" class="nav-link btn btn-primary text-light pt-lg-2" id="itemDiscord">
                             <span class="fab fa-discord"></span> Discord
                         </a>
                     </li>
@@ -135,7 +135,7 @@
     </main>
 
     <!-- Footer Section -->
-    <footer class="footer bg-primary sticky-bottom">
+    <footer class="footer bg-terciary sticky-bottom">
         <div class="container p-3">
             <p class="text-center text-light font-italic">&copy; Script Hub Team 2019. All Rights Reserved.</p>
             <ul class="list-inline d-flex flex-row justify-content-center">

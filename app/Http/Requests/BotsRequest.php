@@ -25,7 +25,7 @@ class BotsRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:50',
-            'prefix' => 'required|string|max:5|unique:bots,prefix',
+            'prefix' => 'required|string|max:10|unique:bots,prefix',
             'info' => 'string',
             'fk_discord_users' => 'required|exists:discord_users,id|max:50',
         ];
@@ -38,6 +38,7 @@ class BotsRequest extends FormRequest
      */
     public function messages() {
         return [
+            'prefix.unique' => 'Este prefijo ya está en uso.',
             'fk_discord_users.exists' => 'Este usuario de Discord no existe.',
         ];
     }

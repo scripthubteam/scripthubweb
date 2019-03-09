@@ -64,7 +64,7 @@ class BotsTest extends TestCase
         $discord_bot = factory(DiscordUsers::class)->create();
         $input = [
             'name' => $this->faker->userName,
-            'prefix' => str_random(random_int(6, 20)),
+            'prefix' => str_random(random_int(11, 20)),
             'info' => $this->faker->sentence(3, true),
             'fk_discord_users' => $discord_bot->id,
         ];
@@ -192,6 +192,7 @@ class BotsTest extends TestCase
         $this->setUpFaker();
         $input = [
             'name' => $this->faker()->userName,
+            'prefix' => str_random(random_int(1, 10)),
         ];
 
         // Accessing with non-owner user
@@ -208,7 +209,7 @@ class BotsTest extends TestCase
              ->assertOk();
         $this->actingAs($user)
              ->put(route('bots.update', $bot), $input)
-             ->assertOk();
+             ->assertRedirect(route('bots.show', $bot));
 
         // Reloading data
         $bot->refresh();

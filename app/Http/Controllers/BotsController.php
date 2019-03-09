@@ -7,6 +7,7 @@ use App\Bots;
 use App\ScriptHubUsers;
 use Auth;
 use App\Http\Requests\BotsRequest;
+use App\Http\Requests\ModifyBotRequest;
 
 class BotsController extends Controller
 {
@@ -102,17 +103,31 @@ class BotsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\ModifyBotRequest  $request
      * @param  \App\Bots  $bot
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Bots $bot, $bot_id)
+    public function update(ModifyBotRequest $request, Bots $bot, $bot_id)
     {
         $user = ScriptHubUsers::findOrFail(Auth::user()->id);
         $bot = Bots::findOrFail($bot_id);
         if ($bot->scripthub_user != $user) {
             abort(403, 'Acceso denegado. No puedes editar bots de otros usuarios.');
         }
+
+        $info = $request->all();
+        if(empty($info)) {
+            return redirect()->route('bots.edit', $bot)
+                             ->withErrors([
+                                 'empty' => '¡El formulario está vacío!',
+                             ]);
+        }
+
+        $bot->fill($info);
+        $bot->save();
+
+        $request->flash('¡Tu bot se ha actualizado con éxito!');
+        return redirect()->route('bots.show', $bot);
     }
 
     /**

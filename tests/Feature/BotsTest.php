@@ -214,5 +214,6 @@ class BotsTest extends TestCase
         // Reloading data
         $bot->refresh();
         $this->assertEquals($input['name'], $bot->name, 'Name wasn\'t changed!');
+        $this->assertEquals($input['prefix'], trim($bot->prefix), 'Prefix hasn\'t changed!');
     }
 }

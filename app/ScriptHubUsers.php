@@ -25,7 +25,6 @@ class ScriptHubUsers extends Authenticatable implements MustVerifyEmail
         'email',
         'password',
         'description',
-        'avatar_url',
         'fk_discord_users',
     ];
 

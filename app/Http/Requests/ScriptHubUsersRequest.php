@@ -33,17 +33,6 @@ class ScriptHubUsersRequest extends FormRequest
             $this->request->remove('email');
         }
 
-        // Checks if avatar is given
-        if ($this->has('avatar')) {
-            $file = $this->file('avatar');
-            $path = Storage::disk('public')->putFileAs(
-                'avatars', $file, $scriptHubUser->id . '_avatar.' . $file->extension()
-            );
-            $this->request->add([
-                'avatar_url' => env('APP_URL') . '/storage/' . str_replace(env('APP_URL'), '', asset($path)),
-            ]);
-        }
-
         return true;
     }
 

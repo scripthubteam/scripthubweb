@@ -6,7 +6,7 @@ use Auth;
 
 use App\Http\Requests\ScriptHubUsersRequest;
 use App\ScriptHubUsers;
-use App\Bots;
+use Illuminate\Support\Facades\Storage;
 
 class ScriptHubUsersController extends Controller
 {
@@ -95,6 +95,10 @@ class ScriptHubUsersController extends Controller
 
         // Updating
         $scriptHubUser->fill($info);
+        if($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
+            $path = $request->avatar->storeAs('', 'user' . $scriptHubUser->id . '_avatar.' . $request->avatar->extension(), 'images');
+            $scriptHubUser->avatar_url = Storage::disk('images')->url($path);
+        }
         $scriptHubUser->save();
 
         // Redirecting

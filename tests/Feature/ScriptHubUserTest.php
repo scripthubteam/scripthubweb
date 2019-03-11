@@ -284,8 +284,8 @@ class UserRegistrationTest extends TestCase
              ->assertRedirect(route('home'));
 
         // Assert the file was stored
-        $storage_path = 'avatars/' . $user->id . '_avatar.' . $file->extension();
-        Storage::disk('public')->assertExists($storage_path);
+        $storage_path = 'user' . $user->id . '_avatar.' . $file->extension();
+        Storage::disk('images')->assertExists($storage_path);
 
         // Refresh user
         $user->refresh();

@@ -187,7 +187,6 @@ class UserRegistrationTest extends TestCase
         $this->actingAs($random_user)
              ->put(route('users.update', $user), $input)
              ->assertForbidden();
-        $before = $user->username;
         $this->actingAs($user)
              ->put(route('users.update', $user), $input)
              ->assertRedirect(route('home'));

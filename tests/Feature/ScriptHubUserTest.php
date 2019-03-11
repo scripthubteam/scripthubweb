@@ -5,15 +5,12 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 use Illuminate\Support\Carbon;
 
 use \App\TempRegistration;
-use \App\Bots;
 use \App\ScriptHubUsers;
-use \App\DiscordUsers;
 
 use \Faker\Factory;
 

@@ -1,10 +1,11 @@
 {
-    "name": "laravel/laravel",
+    "name": "scripthubteam/scripthub",
     "type": "project",
-    "description": "The Laravel Framework.",
+    "description": "The ScriptHub Team Website.",
     "keywords": [
-        "framework",
-        "laravel"
+        "website",
+        "scripthubteam",
+        "scripthub"
     ],
     "license": "MIT",
     "require": {

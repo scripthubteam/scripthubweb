@@ -105,10 +105,10 @@ class ScriptHubUsersController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\ScriptHubUsers  $scriptHubUsers
+     * @param  \App\ScriptHubUsers  $scriptHubUser
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ScriptHubUsers $scriptHubUsers, $user)
+    public function destroy(ScriptHubUsers $scriptHubUser, $user)
     {
         // Gets both current user and user to edit
         $currentUser = ScriptHubUsers::findOrFail(Auth::user()->id);

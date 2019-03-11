@@ -263,7 +263,7 @@ class UserRegistrationTest extends TestCase
      * @return void
      */
     public function testUploadAvatar() {
-        Storage::fake('public');
+        Storage::fake('images');
 
         // Creating user
         $user = factory(ScriptHubUsers::class)->create([

@@ -15,10 +15,10 @@ class Bots extends Model
      * @var array
      */
     protected $fillable = [
+        'id',
         'name',
         'prefix',
         'info',
-        'fk_discord_users',
     ];
 
     /**
@@ -48,6 +48,6 @@ class Bots extends Model
      * @return App\DiscordUsers discord_user
      */
     public function discord_user() {
-        return $this->belongsTo('App\DiscordUsers', 'fk_discord_users', 'id');
+        return $this->belongsTo('App\DiscordUsers', 'fk_scripthub_users_discord_users', 'id');
     }
 }

@@ -48,7 +48,7 @@
             <div class="w-100 my-4"></div>
             @foreach ($bots as $bot)
                 <li class="col-3 ml-1 mb-4 card py-2">
-                    <img src="{{ $bot->discord_user->avatar_url }}" alt="Imagen de Perfil del bot" class="card-img-top">
+                    <img src="{{ $bot->avatar_url }}" alt="Imagen de Perfil del bot" class="card-img-top">
                     <div class="card-body">
                         <h5 class="card-title">{{ $bot->name }} (👍 {{ $bot->popularity }})</h5>
                         <h6 class="card-subtitle mb-2 text-muted">
@@ -65,7 +65,7 @@
                     </div>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">
-                            ID del Bot: {{ $bot->discord_user->id }}
+                            ID del Bot: {{ $bot->id }}
                         </li>
                         <li class="list-group-item">
                             Prefijo de servidor: <code>{{ $bot->prefix }}</code>

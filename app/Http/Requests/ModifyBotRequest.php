@@ -27,6 +27,7 @@ class ModifyBotRequest extends FormRequest
             'name' => 'required|string|max:50',
             'prefix' => 'required|string|max:10|unique:bots,prefix',
             'info' => 'string',
+            'avatar' => 'image',
         ];
     }
 

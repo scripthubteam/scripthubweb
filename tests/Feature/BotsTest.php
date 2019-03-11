@@ -35,8 +35,6 @@ class BotsTest extends TestCase
              ->assertOk();
 
         $this->setUpFaker();
-        // Creating Bot
-        $discord_bot = factory(DiscordUsers::class)->create();
 
         // Redirect because empty
         $this->actingAs($user)
@@ -45,35 +43,33 @@ class BotsTest extends TestCase
 
         // Declaring input
         $input = [
+            'id' => $this->faker->randomNumber(9),
             'name' => $this->faker->userName,
             'prefix' => str_random(random_int(1, 5)),
             'info' => $this->faker->sentence(3, true),
-            'fk_discord_users' => $discord_bot->id,
         ];
 
         // Creating bot
         $this->actingAs($user)
              ->post(route('bots.store', $input))
              ->assertOk();
-        $bot = Bots::where('fk_discord_users', $discord_bot->id)->first();
+        $bot = Bots::where('id', $input['id'])->first();
         // Checking if bot was created
         $this->assertDatabaseHas('bots', $bot->getAttributes());
 
         // Incorrect values //
-        // Creating Bot
-        $discord_bot = factory(DiscordUsers::class)->create();
         $input = [
+            'id' => $this->faker->randomNumber(9),
             'name' => $this->faker->userName,
             'prefix' => str_random(random_int(11, 20)),
             'info' => $this->faker->sentence(3, true),
-            'fk_discord_users' => $discord_bot->id,
         ];
         $this->actingAs($user)
              ->post(route('bots.store', $input))
              ->assertRedirect(route('bots.create'));
         // Checking if bot wasn't created
         $this->assertDatabaseMissing('bots', [
-            'fk_discord_users' => $discord_bot->id,
+            'id' => $input['id'],
         ]);
 
         // Long usename
@@ -84,18 +80,7 @@ class BotsTest extends TestCase
              ->assertRedirect(route('bots.create'));
         // Checking if bot wasn't created
         $this->assertDatabaseMissing('bots', [
-            'fk_discord_users' => $discord_bot->id,
-        ]);
-
-        // Wrong ID
-        $input['name'] = $this->faker->userName;
-        $input['fk_discord_users'] = $this->faker->randomNumber(9);
-        $this->actingAs($user)
-             ->post(route('bots.store', $input))
-             ->assertRedirect(route('bots.create'));
-        // Checking if bot wasn't created
-        $this->assertDatabaseMissing('bots', [
-            'fk_discord_users' => $discord_bot->id,
+            'id' => $input['id'],
         ]);
     }
 
@@ -113,26 +98,20 @@ class BotsTest extends TestCase
              ->get(route('bots.create'))
              ->assertOk();
 
-        // Creating Bot
-        $discord_bot = factory(DiscordUsers::class)->create();
-
-        // Setting up Faker
-        $this->setUpFaker();
-
         // Mass assignment //
         // Declaring input
         $input = [
+            'id' => $this->faker->randomNumber(9),
             'name' => $this->faker->userName,
             'prefix' => str_random(random_int(1, 5)),
             'info' => $this->faker->sentence(3, true),
-            'fk_discord_users' => $discord_bot->id,
             'validated' => true,
             'popularity' => 123,
         ];
         $this->actingAs($user)
              ->post(route('bots.store', $input))
              ->assertOk();
-        $bot = Bots::where('fk_discord_users', $discord_bot->id)->first();
+        $bot = Bots::where('id', $input['id'])->first();
         // Checking if bot was created
         $this->assertDatabaseHas('bots', $bot->getAttributes());
         // Checking for mass assignment
@@ -143,19 +122,18 @@ class BotsTest extends TestCase
         $random_user = factory(ScriptHubUsers::class)->create([
             'email_verified_at' => Carbon::now(),
         ]);
-        $discord_bot = factory(DiscordUsers::class)->create();
         $input = [
+            'id' => $this->faker->randomNumber(9),
             'name' => $this->faker->userName,
             'prefix' => str_random(random_int(1, 5)),
             'info' => $this->faker->sentence(3, true),
-            'fk_discord_users' => $discord_bot->id,
             'fk_scripthub_users' => $random_user->id,
             'fk_scripthub_users_discord_users' => $random_user->fk_discord_users,
         ];
         $this->actingAs($user)
              ->post(route('bots.store', $input))
              ->assertOk();
-        $bot = Bots::where('fk_discord_users', $discord_bot->id)->first();
+        $bot = Bots::where('id', $input['id'])->first();
         // Checking if bot was created
         $this->assertDatabaseHas('bots', $bot->getAttributes());
         // Checking for falsehood of identity
@@ -179,17 +157,14 @@ class BotsTest extends TestCase
         $random_user = factory(ScriptHubUsers::class)->create([
             'email_verified_at' => Carbon::now(),
         ]);
-        // Discord Bot
-        $discord_bot = factory(DiscordUsers::class)->create();
         // Bot
         $bot = factory(Bots::class)->create([
-            'fk_discord_users' => $discord_bot->id,
+            'id' => $this->faker->randomNumber(9),
             'fk_scripthub_users' => $user->id,
             'fk_scripthub_users_discord_users' => $user->fk_discord_users,
         ]);
 
         // Creating input
-        $this->setUpFaker();
         $input = [
             'name' => $this->faker()->userName,
             'prefix' => str_random(random_int(1, 10)),

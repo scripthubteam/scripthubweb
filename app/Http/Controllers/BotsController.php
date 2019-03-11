@@ -1,13 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Http\Request;
+
+use Auth;
+use Illuminate\Support\Facades\Storage;
+
+use App\Http\Requests\BotsRequest;
+use App\Http\Requests\ModifyBotRequest;
 
 use App\Bots;
 use App\ScriptHubUsers;
-use Auth;
-use App\Http\Requests\BotsRequest;
-use App\Http\Requests\ModifyBotRequest;
 
 class BotsController extends Controller
 {
@@ -64,10 +66,21 @@ class BotsController extends Controller
         $user = ScriptHubUsers::findOrFail(Auth::user()->id);
         // Creating bot
         $bot = Bots::make($request->all());
+
+        // Checking for avatar files
+        if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
+            $path = $request->avatar->storeAs('', 'user' . $bot->id . '_avatar.' . $request->avatar->extension(), 'images');
+            $bot->avatar_url = Storage::disk('images')->url($path);
+        }
+
         // Foreign keys aren't mass assigment to avoid falsehood of identity
         $bot->fk_scripthub_users = $user->id;
         $bot->fk_scripthub_users_discord_users = $user->fk_discord_users;
         $bot->save();
+
+        // Redirecting
+        $request->flash('Has creado un bot.');
+        return redirect()->route('users.bots', $user);
     }
 
     /**

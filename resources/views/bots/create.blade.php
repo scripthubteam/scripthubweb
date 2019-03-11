@@ -8,7 +8,8 @@
         <div class="row align-items-center justify-content-center my-4">
             {!! Form::open([
                 'route' => 'bots.store',
-                'class' => 'border border-black rounded p-4'
+                'class' => 'border border-black rounded p-4',
+                'files' => true,
             ]) !!}
             {!! Form::token() !!}
             <div class="form-group">
@@ -32,6 +33,20 @@
                 {!! Form::textarea('info', '', [
                     'class' => 'form-control',
                     'placeholder' => '¡Descripción de tu Bot y lo que hace!',
+                ]) !!}
+            </div>
+            <div class="form-group">
+                {!! Form::label('id', 'ID del Bot') !!}
+                {!! Form::text('id', '', [
+                    'class' => 'form-control',
+                    'placeholder' => 'ID de Discord del Bot',
+                    'required',
+                ]) !!}
+            </div>
+            <div class="form-group">
+                {!! Form::label('avatar', 'Avatar') !!}
+                {!! Form::file('avatar', [
+                    'class' => 'form-control-file',
                 ]) !!}
             </div>
             <div class="form-group">

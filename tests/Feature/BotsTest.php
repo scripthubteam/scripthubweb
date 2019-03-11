@@ -7,10 +7,11 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 use \App\ScriptHubUsers;
-use App\DiscordUsers;
 use App\Bots;
 
 use \Carbon\Carbon;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 
 class BotsTest extends TestCase
 {
@@ -45,14 +46,14 @@ class BotsTest extends TestCase
         $input = [
             'id' => $this->faker->randomNumber(9),
             'name' => $this->faker->userName,
-            'prefix' => str_random(random_int(1, 5)),
+            'prefix' => str_random(random_int(1, 10)),
             'info' => $this->faker->sentence(3, true),
         ];
 
         // Creating bot
         $this->actingAs($user)
              ->post(route('bots.store', $input))
-             ->assertOk();
+             ->assertRedirect(route('users.bots', $user));
         $bot = Bots::where('id', $input['id'])->first();
         // Checking if bot was created
         $this->assertDatabaseHas('bots', $bot->getAttributes());
@@ -85,6 +86,45 @@ class BotsTest extends TestCase
     }
 
     /**
+     * Checks if a bot can be created with avatar without problems.
+     *
+     * @return void
+     */
+    public function testCreatesBotWithImage()
+    {
+        Storage::fake('images');
+
+        // Creating User for access
+        $user = factory(ScriptHubUsers::class)->create([
+            'email_verified_at' => Carbon::now(),
+        ]);
+        // Creating image
+        $file = UploadedFile::fake()->image('avatar.jpg');
+        // Declaring input
+        $input = [
+            'id' => $this->faker->randomNumber(9),
+            'name' => $this->faker->userName,
+            'prefix' => str_random(random_int(1, 10)),
+            'info' => $this->faker->sentence(3, true),
+            'avatar' => $file,
+        ];
+
+        // Creating bot
+        $this->actingAs($user)
+             ->post(route('bots.store', $input))
+             ->assertRedirect(route('users.bots', $user));
+
+        // Checking everything is correct
+        $bot = Bots::where('id', $input['id'])->first();
+        // Checking if bot was created
+        $this->assertDatabaseHas('bots', [
+            'id' => $input['id'],
+        ]);
+        $path = 'bot' . $bot->id . '_avatar.' . $file->extension();
+        $this->assertEquals($bot->avatar_url, Storage::disk('images')->url($path), 'Img URL is not correct.');
+    }
+
+    /**
      * Test if there are not security issues while adding bots.
      *
      * @return void
@@ -110,7 +150,7 @@ class BotsTest extends TestCase
         ];
         $this->actingAs($user)
              ->post(route('bots.store', $input))
-             ->assertOk();
+             ->assertRedirect(route('users.bots', $user));
         $bot = Bots::where('id', $input['id'])->first();
         // Checking if bot was created
         $this->assertDatabaseHas('bots', $bot->getAttributes());
@@ -132,7 +172,7 @@ class BotsTest extends TestCase
         ];
         $this->actingAs($user)
              ->post(route('bots.store', $input))
-             ->assertOk();
+             ->assertRedirect(route('users.bots', $user));
         $bot = Bots::where('id', $input['id'])->first();
         // Checking if bot was created
         $this->assertDatabaseHas('bots', $bot->getAttributes());

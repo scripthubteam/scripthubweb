@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Route;
+use App\Bots;
 
 class ModifyBotRequest extends FormRequest
 {
@@ -13,6 +15,16 @@ class ModifyBotRequest extends FormRequest
      */
     public function authorize()
     {
+        // Getting BotID
+        $bot = Route::current()->bot_id;
+        // Creating bot from current
+        $bot = Bots::findOrFail($bot);
+
+        // Checking if prefix wasn't changed
+        if ($this->has('prefix') && $this->input('prefix') == $bot->prefix) {
+            $this->request->remove('prefix');
+        }
+
         return true;
     }
 
@@ -26,7 +38,7 @@ class ModifyBotRequest extends FormRequest
         return [
             'name' => 'string|max:50|min:1',
             'prefix' => 'string|max:10|min:1|unique:bots,prefix',
-            'info' => 'text',
+            'info' => 'string',
             'avatar' => 'image',
         ];
     }

@@ -24,9 +24,9 @@ class ModifyBotRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:50',
-            'prefix' => 'required|string|max:10|unique:bots,prefix',
-            'info' => 'string',
+            'name' => 'string|max:50|min:1',
+            'prefix' => 'string|max:10|min:1|unique:bots,prefix',
+            'info' => 'text',
             'avatar' => 'image',
         ];
     }

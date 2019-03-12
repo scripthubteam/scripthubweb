@@ -111,6 +111,7 @@ class BotsController extends Controller
                                 'forbidden' => 'No puedes editar los bots de otros usuarios.',
                             ]);
         }
+        return view('bots.edit', compact('bot'));
     }
 
     /**
@@ -134,6 +135,11 @@ class BotsController extends Controller
                              ->withErrors([
                                  'empty' => '¡El formulario está vacío!',
                              ]);
+        }
+
+        if($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
+            $path = $request->avatar->storeAs('', 'bots' . $bot->id . '_avatar.' . $request->avatar->extension(), 'images');
+            $bot->avatar_url = Storage::disk('images')->url($path);
         }
 
         $bot->fill($info);

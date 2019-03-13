@@ -155,8 +155,15 @@ class BotsController extends Controller
      * @param  \App\Bots  $bot
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Bots $bot)
+    public function destroy(Bots $bot, $bot_id)
     {
-        //
+        $user = ScriptHubUsers::findOrFail(Auth::user()->id);
+        $bot = Bots::findOrFail($bot_id);
+        if ($bot->scripthub_user != $user) {
+            abort(403, 'Acceso denegado. No puedes borrar bots de otros usuarios.');
+        }
+
+        // Deletes bot
+        $bot->delete();
     }
 }

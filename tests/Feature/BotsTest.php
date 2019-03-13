@@ -284,4 +284,40 @@ class BotsTest extends TestCase
         $storage_path = 'bots' . $bot->id . '_avatar.' . $input['avatar']->extension();
         Storage::disk('images')->assertExists($storage_path);
     }
+
+    /**
+     * Checks if the bot can be removed.
+     *
+     * @return void
+     */
+    public function testDeleteBot()
+    {
+        // Owner of the Bot
+        $user = factory(ScriptHubUsers::class)->create([
+           'email_verified_at' => Carbon::now(),
+        ]);
+        // Another user for testing security
+        $random_user = factory(ScriptHubUsers::class)->create([
+            'email_verified_at' => Carbon::now(),
+        ]);
+        // Bot
+        $bot = factory(Bots::class)->create([
+            'id' => $this->faker->randomNumber(9),
+            'fk_scripthub_users' => $user->id,
+            'fk_scripthub_users_discord_users' => $user->fk_discord_users,
+        ]);
+
+        // Random user tries to delete
+        $this->actingAs($random_user)
+             ->delete(route('bots.destroy', $bot))
+             ->assertForbidden();
+        // User tries to delete
+        $this->actingAs($user)
+             ->delete(route('bots.destroy', $bot))
+             ->assertOk();
+        // Checks if bot was deleted
+        $this->assertDatabaseMissing('bots', [
+            'id' => $bot->id,
+        ]);
+    }
 }

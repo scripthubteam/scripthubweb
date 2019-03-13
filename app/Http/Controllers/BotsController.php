@@ -165,5 +165,7 @@ class BotsController extends Controller
 
         // Deletes bot
         $bot->delete();
+
+        return redirect()->route('users.bots', $user)->with('status', 'Bot eliminado');
     }
 }

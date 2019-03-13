@@ -88,15 +88,15 @@
                                 <div class="w-100 my-1"></div>
                                 <a href="{{ route('bots.edit', $bot) }}" class="col-10 btn btn-secondary">Editar</a>
                                 <div class="w-100 my-1"></div>
-                            <a id="removeBotBtn" href="{{ route('bots.destroy', $bot) }}" class="col-10 btn btn-danger">Eliminar</a>
-                            {!! Form::open([
-                                'route' => ['bots.destroy', $bot],
-                                'method' => 'delete',
-                                'class' => 'd-none',
-                                'id' => 'bot-destroy-form',
-                            ]) !!}
-                            {!! Form::token() !!}
-                            {!! Form::close() !!}
+                                <a id="removeBotBtn" href="{{ route('bots.destroy', $bot) }}" class="col-10 btn btn-danger">Eliminar</a>
+                                {!! Form::open([
+                                    'route' => ['bots.destroy', $bot],
+                                    'method' => 'delete',
+                                    'class' => 'd-none',
+                                    'id' => 'bot-destroy-form',
+                                ]) !!}
+                                {!! Form::token() !!}
+                                {!! Form::close() !!}
                             @endif
                         </div>
                     </div>
@@ -107,4 +107,5 @@
 </div>
 @stop
 @section('scripts')
+<script src="{{ url('/') . '/js/destroy_bot.js' }}"></script>
 @endsection

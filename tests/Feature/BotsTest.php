@@ -314,7 +314,7 @@ class BotsTest extends TestCase
         // User tries to delete
         $this->actingAs($user)
              ->delete(route('bots.destroy', $bot))
-             ->assertOk();
+             ->assertRedirect(route('users.bots', $user));
         // Checks if bot was deleted
         $this->assertDatabaseMissing('bots', [
             'id' => $bot->id,

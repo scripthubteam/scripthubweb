@@ -124,20 +124,12 @@ class RouteTest extends TestCase
         // Checking
         $this->get('discord')
              ->assertForbidden();
-        $this->get('discord')
-             ->assertSee('Acceso denegado.');
         $this->get(route('discord.create'))
              ->assertForbidden();
-        $this->get(route('discord.create'))
-             ->assertSee('Acceso denegado.');
         $this->get(route('discord.show', DiscordUsers::first()))
              ->assertForbidden();
-        $this->get(route('discord.show', DiscordUsers::first()))
-             ->assertSee('Acceso denegado.');
         $this->get(route('discord.edit', DiscordUsers::first()))
              ->assertForbidden();
-        $this->get(route('discord.edit', DiscordUsers::first()))
-             ->assertSee('Acceso denegado.');
     }
 
     /**

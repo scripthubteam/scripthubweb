@@ -36,10 +36,10 @@ class RouteTest extends TestCase
              ->assertOk();
         // Creates random Bot
         $bot = factory(Bots::class)->create();
+        $this->get(route('bots.index'))
+             ->assertOk();
         $this->get(route('bots.show', $bot))
-             ->assertOk();
-        $this->get(route('bots.show', $bot->id))
-             ->assertOk();
+             ->assertStatus(302);
     }
 
     /**
@@ -63,8 +63,6 @@ class RouteTest extends TestCase
         $this->get(route('verification.notice'))
              ->assertRedirect(route('login'));
         $this->get(route('home'))
-             ->assertRedirect(route('login'));
-        $this->get(route('bots.index'))
              ->assertRedirect(route('login'));
         $this->get(route('bots.create'))
              ->assertRedirect(route('login'));

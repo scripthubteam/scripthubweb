@@ -31,3 +31,5 @@ Route::get('/users/{user}/bots', 'ScriptHubUsersController@bots')->name('users.b
 Route::resource('/bots', 'BotsController')->parameters([
     'bots' => 'bot_id',
 ]);
+Route::get('/bots/{bot_id}/validate', 'BotsController@accept')->name('bots.validate');
+Route::get('/bots/{bot_id}/deny', 'BotsController@deny')->name('bots.deny');

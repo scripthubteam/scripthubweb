@@ -10,6 +10,9 @@ use App\Http\Requests\ModifyBotRequest;
 
 use App\Bots;
 use App\ScriptHubUsers;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\NewBotCreated;
+use App\Notifications\BotCreated;
 
 class BotsController extends Controller
 {
@@ -21,8 +24,9 @@ class BotsController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth')->except('show');
-        $this->middleware('verified')->except('show');
+        $this->middleware('auth')->except(['index']);
+        $this->middleware('verified')->except(['index']);
+        $this->middleware('admin')->only(['accept', 'deny']);
     }
 
     /**
@@ -69,7 +73,7 @@ class BotsController extends Controller
 
         // Checking for avatar files
         if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
-            $path = $request->avatar->storeAs('', 'user' . $bot->id . '_avatar.' . $request->avatar->extension(), 'images');
+            $path = $request->avatar->storeAs('', 'bot' . $bot->id . '_avatar.' . $request->avatar->extension(), 'images');
             $bot->avatar_url = Storage::disk('images')->url($path);
         }
 
@@ -77,6 +81,13 @@ class BotsController extends Controller
         $bot->fk_scripthub_users = $user->id;
         $bot->fk_scripthub_users_discord_users = $user->fk_discord_users;
         $bot->save();
+
+        // Notificating admins
+        $admins = ScriptHubUsers::where('is_admin', true)->get();
+        Notification::send($admins, new NewBotCreated($bot));
+
+        // Notification user
+        $user->notify(new BotCreated($bot));
 
         // Redirecting
         $request->flash('Has creado un bot.');
@@ -167,5 +178,35 @@ class BotsController extends Controller
         $bot->delete();
 
         return redirect()->route('users.bots', $user)->with('status', 'Bot eliminado');
+    }
+
+    /**
+     * Validates a bot.
+     *
+     * @param \App\Bots  $bot
+     * @return \Illuminate\Http\Response
+     */
+    public function accept(Bots $bot, $bot_id)
+    {
+        $bot = Bots::findOrFail($bot_id);
+        $bot->validated = true;
+        $bot->save();
+
+        return redirect()->route('bots.show', $bot)->with('status', 'Bot validado.');
+    }
+
+    /**
+     * Denies a bot.
+     *
+     * @param \App\Bots  $bot
+     * @return \Illuminate\Http\Response
+     */
+    public function deny(Bots $bot, $bot_id)
+    {
+        // Since we deny a bot, this will be erased.
+        $bot = Bots::findOrFail($bot_id);
+        $bot->delete();
+
+        return redirect()->route('bots.index')->with('status', 'Bot denegado.');
     }
 }

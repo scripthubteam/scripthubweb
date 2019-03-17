@@ -90,40 +90,32 @@ class BotsTest extends TestCase
      *
      * @return void
      */
-    // public function testCreatesBotWithImage()
-    // {
-    //     Storage::fake('images');
+    public function testCreatesBotWithImage()
+    {
+        Storage::fake('images');
 
-    //     // Creating User for access
-    //     $user = factory(ScriptHubUsers::class)->create([
-    //         'email_verified_at' => Carbon::now(),
-    //     ]);
-    //     // Declaring input
-    //     $input = [
-    //         'id' => $this->faker->randomNumber(9),
-    //         'name' => $this->faker->userName,
-    //         'prefix' => str_random(random_int(1, 10)),
-    //         'info' => $this->faker->sentence(3, true),
-    //         'avatar' => UploadedFile::fake()->image('avatar.jpg'),
-    //     ];
+        // Creating User for access
+        $user = factory(ScriptHubUsers::class)->create([
+            'email_verified_at' => Carbon::now(),
+        ]);
 
-    //     // Creating bot
-    //     $this->actingAs($user)
-    //          ->get(route('bots.create'))
-    //          ->assertOk();
-    //     $this->actingAs($user)
-    //          ->post(route('bots.store', $input))
-    //          ->assertRedirect(route('users.bots', $user));
-
-    //     // Checking everything is correct
-    //     $bot = Bots::where('id', $input['id'])->first();
-    //     // Checking if bot was created
-    //     $this->assertDatabaseHas('bots', [
-    //         'id' => $input['id'],
-    //     ]);
-    //     $path = 'bot' . $bot->id . '_avatar.' . $input['avatar']->extension();
-    //     $this->assertEquals($bot->avatar_url, Storage::disk('images')->url($path), 'Img URL is not correct.');
-    // }
+        // Declaring input
+        $file = UploadedFile::fake()->image('avatar.jpg');
+        $input = [
+            'id' => $this->faker->randomNumber(9),
+            'name' => $this->faker->userName,
+            'prefix' => str_random(random_int(1, 5)),
+            'info' => $this->faker->sentence(3, true),
+        ];
+        $this->actingAs($user)
+             ->post(route('bots.store', $input), ['avatar' => $file])
+             ->assertRedirect(route('users.bots', $user));
+        $bot = Bots::where('id', $input['id'])->first();
+        // Checking if bot was created
+        $this->assertDatabaseHas('bots', $bot->getAttributes());
+        $path = 'bot' . $bot->id . '_avatar.' . $file->extension();
+        $this->assertEquals($bot->avatar_url, Storage::disk('images')->url($path), 'Img URL is not correct.');
+    }
 
     /**
      * Test if there are not security issues while adding bots.
@@ -319,5 +311,53 @@ class BotsTest extends TestCase
         $this->assertDatabaseMissing('bots', [
             'id' => $bot->id,
         ]);
+    }
+
+    /**
+     * Checks validation.
+     *
+     * @return void
+     */
+    public function testBotsValidation()
+    {
+        // Owner of the Bot
+        $user = factory(ScriptHubUsers::class)->create([
+            'email_verified_at' => Carbon::now(),
+         ]);
+        // Admin
+        $admin_user = factory(ScriptHubUsers::class)->create([
+            'email_verified_at' => Carbon::now(),
+            'is_admin' => true,
+        ]);
+        // Bot
+        $bot = factory(Bots::class)->create([
+            'id' => $this->faker->randomNumber(9),
+            'validated' => false,
+            'fk_scripthub_users' => $user->id,
+            'fk_scripthub_users_discord_users' => $user->fk_discord_users,
+        ]);
+
+        // Acceptting bot
+        $this->actingAs($user)
+             ->get(route('bots.validate', $bot))
+             ->assertForbidden();
+        $this->actingAs($admin_user)
+             ->get(route('bots.validate', $bot))
+             ->assertRedirect(route('bots.show', $bot));
+
+        // Checks if bot was validated
+        $bot->refresh();
+        $this->assertTrue($bot->validated);
+
+        // Deny bot
+        $this->actingAs($user)
+             ->get(route('bots.deny', $bot))
+             ->assertForbidden();
+        $this->actingAs($admin_user)
+             ->get(route('bots.deny', $bot))
+             ->assertRedirect(route('bots.index'));
+
+        // Checks for bot
+        $this->assertDatabaseMissing('bots', $bot->getAttributes());
     }
 }
